@@ -3,140 +3,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>选一选矿车间安全知识答题 (修复版)</title>
+    <title>选一选矿车间安全知识答题 (终极修复版)</title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, 'Microsoft YaHei', sans-serif;
-            background: #f4f7fb;
-            color: #172033;
-        }
-        .top {
-            background: linear-gradient(135deg, #0f172a, #1d4ed8);
-            color: #fff;
-            padding: 18px 24px;
-        }
-        .top b {
-            font-size: 24px;
-        }
-        .wrap {
-            max-width: 1180px;
-            margin: auto;
-            padding: 20px;
-        }
-        .card {
-            background: white;
-            border: 1px solid #dbe3ef;
-            border-radius: 16px;
-            padding: 18px;
-            margin: 14px 0;
-            box-shadow: 0 6px 18px #0f172a12;
-        }
-        .row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 10px;
-            font-size: 15px;
-        }
-        textarea {
-            min-height: 120px;
-        }
-        button {
-            border: 0;
-            border-radius: 10px;
-            padding: 10px 14px;
-            background: #2563eb;
-            color: #fff;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        button.gray {
-            background: #64748b;
-        }
-        button.red {
-            background: #dc2626;
-        }
-        button.light {
-            background: #eef2ff;
-            color: #1e40af;
-        }
-        .hide {
-            display: none;
-        }
-        .msg {
-            padding: 10px;
-            border-radius: 10px;
-            background: #eff6ff;
-            margin-top: 10px;
-        }
-        .q {
-            border: 1px solid #dbe3ef;
-            border-radius: 12px;
-            padding: 14px;
-            margin: 12px 0;
-        }
-        .opt {
-            display: block;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            margin: 8px 0;
-            padding: 8px;
-        }
-        .opt input {
-            width: auto;
-        }
-        .input-block {
-            margin: 8px 0;
-            display: block;
-        }
-        .input-block input[type="text"] {
-            width: 100%;
-            max-width: 300px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        td,
-        th {
-            border-bottom: 1px solid #e2e8f0;
-            padding: 8px;
-            text-align: left;
-        }
-        .ok {
-            color: #16a34a;
-            font-weight: 800;
-        }
-        .bad {
-            color: #dc2626;
-            font-weight: 800;
-        }
-        .small-btn {
-            font-size: 12px;
-            padding: 4px 10px;
-            margin-left: 5px;
-        }
-        @media(max-width:800px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        body { margin: 0; font-family: Arial, 'Microsoft YaHei', sans-serif; background: #f4f7fb; color: #172033; }
+        .top { background: linear-gradient(135deg, #0f172a, #1d4ed8); color: #fff; padding: 18px 24px; }
+        .top b { font-size: 24px; }
+        .wrap { max-width: 1180px; margin: auto; padding: 20px; }
+        .card { background: white; border: 1px solid #dbe3ef; border-radius: 16px; padding: 18px; margin: 14px 0; box-shadow: 0 6px 18px #0f172a12; }
+        .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; }
+        textarea { min-height: 120px; }
+        button { border: 0; border-radius: 10px; padding: 10px 14px; background: #2563eb; color: #fff; font-weight: 700; cursor: pointer; }
+        button.gray { background: #64748b; }
+        button.red { background: #dc2626; }
+        button.light { background: #eef2ff; color: #1e40af; }
+        .hide { display: none; }
+        .msg { padding: 10px; border-radius: 10px; background: #eff6ff; margin-top: 10px; }
+        .q { border: 1px solid #dbe3ef; border-radius: 12px; padding: 14px; margin: 12px 0; }
+        .opt { display: block; border: 1px solid #e2e8f0; border-radius: 10px; margin: 8px 0; padding: 8px; }
+        .opt input { width: auto; }
+        .input-block { margin: 8px 0; display: block; }
+        .input-block input[type="text"] { width: 100%; max-width: 300px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        td, th { border-bottom: 1px solid #e2e8f0; padding: 8px; text-align: left; }
+        .ok { color: #16a34a; font-weight: 800; }
+        .bad { color: #dc2626; font-weight: 800; }
+        @media(max-width:800px) { .grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -145,6 +39,7 @@
         <div>每日练习 · 安全知识 · 在线答题 · 成绩统计</div>
     </div>
     <div class="wrap">
+        <!-- 登录界面 -->
         <section id="login" class="card">
             <h2>登录</h2>
             <div class="grid">
@@ -165,6 +60,7 @@
             <div id="loginMsg" class="msg hide"></div>
         </section>
 
+        <!-- 主应用界面 -->
         <main id="app" class="hide">
             <div class="row">
                 <button onclick="tab('home')">首页</button>
@@ -200,14 +96,12 @@
 
             <section id="admin" class="card page hide">
                 <h2>管理员面板</h2>
-
                 <h3>⚙️ 安全设置</h3>
                 <div class="row">
                     <input id="newAdminPwd" type="password" placeholder="输入新管理员密码" style="max-width:200px;display:inline-block;">
                     <button class="light" onclick="changeAdminPwd()">修改密码</button>
                 </div>
                 <hr>
-
                 <h3>📥 导入题库</h3>
                 <p>Excel/CSV表头：题型、题目、选项A、选项B、选项C、选项D、正确答案、所属分类、解析</p>
                 <p><strong>注：</strong>判断题选项填“正确,错误”；填空题选项留空，答案填写正确答案文本。</p>
@@ -233,34 +127,32 @@
     </div>
 
     <script>
-        // --- 数据层 ---
-        let bank = JSON.parse(localStorage.bank || '[]');
-        let users = JSON.parse(localStorage.users || '[]');
-        let records = JSON.parse(localStorage.records || '[]');
-        let adminPwd = localStorage.adminPwd || 'admin123'; // 存储管理员密码
-        let cur = [],
-            me = null,
-            admin = false;
-        let $ = id => document.getElementById(id),
-            esc = s => String(s ?? '').replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+        // --- 初始化 & 兼容性修复 ---
+        // 如果 localStorage 是空的，不会报错，防止因旧数据残留导致双重显示
+        // 注意：这里为了修复 bug，我们让它重新读取标准数据
+
+        let bank = JSON.parse(localStorage.getItem('bank') || '[]');
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+        let records = JSON.parse(localStorage.getItem('records') || '[]');
+        let adminPwd = localStorage.getItem('adminPwd') || 'admin123'; 
+
+        let cur = [], me = null, admin = false;
+        let $ = id => document.getElementById(id);
+        let esc = s => String(s ?? '').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
 
         function save() {
-            localStorage.bank = JSON.stringify(bank);
-            localStorage.users = JSON.stringify(users);
-            localStorage.records = JSON.stringify(records);
-            localStorage.adminPwd = adminPwd;
+            localStorage.setItem('bank', JSON.stringify(bank));
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('records', JSON.stringify(records));
+            localStorage.setItem('adminPwd', adminPwd);
         }
 
-        function msg(t) {
-            $('loginMsg').textContent = t;
-            $('loginMsg').classList.remove('hide');
-        }
+        function msg(t) { $('loginMsg').textContent = t; $('loginMsg').classList.remove('hide'); }
 
-        // --- 登录逻辑 ---
+        // --- 登录 ---
         function login() {
-            let r = $('role').value,
-                n = $('name').value.trim();
-            admin = r === 'admin';
+            let r = $('role').value, n = $('name').value.trim();
+            admin = (r === 'admin');
             if (admin) {
                 if (n !== adminPwd) return msg('管理员密码错误');
                 me = '管理员';
@@ -275,9 +167,9 @@
             tab('home');
         }
 
-        function logout() { location.reload() }
+        function logout() { location.reload(); }
 
-        // --- 密码修改 ---
+        // --- 修改密码 ---
         function changeAdminPwd() {
             let p = $('newAdminPwd').value.trim();
             if (!p) return alert('请输入新密码');
@@ -289,7 +181,6 @@
             logout();
         }
 
-        // --- UI切换 ---
         function tab(id) {
             document.querySelectorAll('.page').forEach(x => x.classList.add('hide'));
             $(id).classList.remove('hide');
@@ -303,23 +194,23 @@
             $('users').value = users.map(u => [u.name, u.dept, u.post].join(',')).join('\n');
             renderMine();
             renderAll();
-            // 显示当前密码占位
             if (admin) $('newAdminPwd').placeholder = '当前密码已设置';
         }
 
         // --- 演示数据 ---
         function demo() {
-            bank = [{ type: '判断题', title: '进入生产现场必须正确佩戴安全帽。', opts: ['正确', '错误'], ans: '正确', cat: '基础安全', ana: '安全帽是基本防护用品。' },
-            { type: '单选题', title: '发现事故隐患后应当怎么做？', opts: ['A.立即报告并采取控制措施', 'B.继续作业', 'C.不处理', 'D.等待别人处理'], ans: 'A', cat: '隐患排查', ana: '隐患应及时报告。' },
-            { type: '多选题', title: '动火作业前应确认哪些内容？', opts: ['A.办理作业票', 'B.清理易燃物', 'C.配置灭火器材', 'D.无需监护'], ans: 'A,B,C', cat: '动火作业', ana: '动火必须审批、清理、配备消防器材。' },
-            { type: '填空题', title: '“三违”指违章指挥、违章作业和违反_____。', opts: [], ans: '劳动纪律', cat: '基础安全', ana: '三违：违章指挥、违章作业、违反劳动纪律。' }
+            bank = [
+                { type: '判断题', title: '进入生产现场必须正确佩戴安全帽。', opts: ['正确','错误'], ans: '正确', cat: '基础安全', ana: '安全帽是基本防护用品。' },
+                { type: '单选题', title: '发现事故隐患后应当怎么做？', opts: ['A.立即报告并采取控制措施','B.继续作业','C.不处理','D.等待别人处理'], ans: 'A', cat: '隐患排查', ana: '隐患应及时报告。' },
+                { type: '多选题', title: '动火作业前应确认哪些内容？', opts: ['A.办理作业票','B.清理易燃物','C.配置灭火器材','D.无需监护'], ans: 'A,B,C', cat: '动火作业', ana: '动火必须审批、清理、配备消防器材。' },
+                { type: '填空题', title: '"三违"指违章指挥、违章作业和违反_____。', opts: [], ans: '劳动纪律', cat: '基础安全', ana: '三违：违章指挥、违章作业、违反劳动纪律。' }
             ];
             users = [{ name: '测试用户', dept: '选矿车间', post: '员工' }];
             save();
             msg('演示数据已加载，员工可用“测试用户”登录。');
         }
 
-        // --- 导入员工名单（文件） ---
+        // --- 导入员工 ---
         function importUsersFromFile() {
             let input = $('userFileInput');
             if (!input.files || !input.files[0]) return alert('请先选择 CSV 或 Excel 文件');
@@ -336,7 +227,6 @@
                         post: String(r['职务'] || r['post'] || '').trim()
                     })).filter(u => u.name);
                     if (!newUsers.length) return alert('未识别到有效用户，请确认文件包含“姓名”列');
-                    // 合并（覆盖同名，保留旧用户）
                     let map = {};
                     users.forEach(u => map[u.name] = u);
                     newUsers.forEach(u => map[u.name] = u);
@@ -344,36 +234,44 @@
                     save();
                     refresh();
                     alert('导入成功 ' + newUsers.length + ' 人，当前共 ' + users.length + ' 人');
-                } catch (err) {
-                    alert('文件解析失败：' + err.message);
-                }
+                } catch (err) { alert('文件解析失败：' + err.message); }
             };
             reader.readAsArrayBuffer(f);
         }
 
-        function shuffle(a) { return [...a].sort(() => Math.random() - .5) }
+        function shuffle(a) { return [...a].sort(() => Math.random() - 0.5); }
 
-        // --- 开始考试 ---
+        // --- 核心修复：开始考试 (支持判断、填空) ---
         function start() {
             if (!bank.length) return alert('请先导入题库');
             cur = shuffle(bank).slice(0, Math.min(+$('num').value || 10, bank.length));
             let html = cur.map((q, i) => {
-                let qhtml = '<div class=q><b>' + (i + 1) + '. 【' + esc(q.type) + '】' + esc(q.title) + '</b>';
-                if (q.type.includes('判断')) {
-                    // 判断：正确/错误 单选
-                    qhtml += q.opts.map(o => '<label class=opt><input name=q' + i + ' type="radio" value="' + esc(o) +
-                        '"> ' + esc(o) + '</label>').join('');
-                } else if (q.type.includes('填空')) {
-                    // 填空：输入框
-                    qhtml += '<div class="input-block"><input type="text" name=q' + i +
-                        ' placeholder="请输入答案" style="width:100%;max-width:300px;"></div>';
-                } else if (q.type.includes('多选')) {
-                    qhtml += q.opts.map(o => '<label class=opt><input name=q' + i + ' type="checkbox" value="' + esc(o[0]) +
-                        '"> ' + esc(o) + '</label>').join('');
+                let typeRaw = (q.type || '').trim();
+                let isTrueFalse = typeRaw.includes('判断');
+                let isFill = typeRaw.includes('填空');
+                let isMulti = typeRaw.includes('多选');
+
+                let qhtml = '<div class=q><b>' + (i+1) + '. 【' + esc(typeRaw) + '】' + esc(q.title) + '</b>';
+
+                if (isTrueFalse) {
+                    // 渲染判断题：正确/错误
+                    let opts = (q.opts && q.opts.length > 0) ? q.opts : ['正确', '错误'];
+                    qhtml += opts.map(o => 
+                        '<label class=opt><input name=q' + i + ' type="radio" value="' + esc(o) + '"> ' + esc(o) + '</label>'
+                    ).join('');
+                } else if (isFill) {
+                    // 填空题
+                    qhtml += '<div class="input-block"><input type="text" name=q' + i + ' placeholder="请输入答案" style="width:100%;max-width:300px;"></div>';
+                } else if (isMulti) {
+                    // 多选题
+                    qhtml += q.opts.map(o => 
+                        '<label class=opt><input name=q' + i + ' type="checkbox" value="' + esc(o[0]) + '"> ' + esc(o) + '</label>'
+                    ).join('');
                 } else {
-                    // 单选默认
-                    qhtml += q.opts.map(o => '<label class=opt><input name=q' + i + ' type="radio" value="' + esc(o[0]) +
-                        '"> ' + esc(o) + '</label>').join('');
+                    // 单选题 (默认)
+                    qhtml += q.opts.map(o => 
+                        '<label class=opt><input name=q' + i + ' type="radio" value="' + esc(o[0]) + '"> ' + esc(o) + '</label>'
+                    ).join('');
                 }
                 qhtml += '</div>';
                 return qhtml;
@@ -382,9 +280,10 @@
             $('result').innerHTML = '';
         }
 
-        // --- 获取答案 ---
+        // --- 获取答案 (修复版，兼容填空) ---
         function getAnswer(i, q) {
-            if (q.type.includes('填空')) {
+            let typeRaw = (q.type || '').trim();
+            if (typeRaw.includes('填空')) {
                 let inp = document.querySelector('[name=q' + i + ']');
                 return inp ? inp.value.trim() : '';
             }
@@ -392,21 +291,19 @@
             return sel;
         }
 
-        // --- 提交 ---
+        // --- 提交考试 ---
         function submitExam() {
             if (!cur.length) return;
-            let right = 0,
-                det = [];
+            let right = 0, det = [];
             cur.forEach((q, i) => {
                 let a = getAnswer(i, q);
                 let isCorrect = false;
-                // 比较标准答案（忽略大小写和空格）
                 let stdAns = q.ans.split(',').map(s => s.trim()).sort().join(',');
                 if (q.type.includes('填空')) {
-                    isCorrect = a.trim().toLowerCase() === q.ans.trim().toLowerCase();
+                    isCorrect = (a.trim().toLowerCase() === q.ans.trim().toLowerCase());
                 } else {
                     let userAns = a.split(',').map(s => s.trim()).sort().join(',');
-                    isCorrect = userAns === stdAns;
+                    isCorrect = (userAns === stdAns);
                 }
                 if (isCorrect) right++;
                 det.push({ title: q.title, user: a, ans: q.ans, ok: isCorrect });
@@ -424,8 +321,7 @@
             records.unshift(r);
             save();
             $('result').innerHTML = '<h3>得分：' + score + '分（' + right + '/' + cur.length + '）</h3>' +
-                det.map(d => '<p>' + esc(d.title) + '：' + (d.ok ? '<span class=ok>正确</span>' :
-                    '<span class=bad>错误</span>') + '，正确答案：' + esc(d.ans) + '</p>').join('');
+                det.map(d => '<p>' + esc(d.title) + '：' + (d.ok ? '<span class=ok>正确</span>' : '<span class=bad>错误</span>') + '，正确答案：' + esc(d.ans) + '</p>').join('');
             refresh();
         }
 
@@ -439,9 +335,10 @@
         }
 
         function table(rs) {
-            return rs.length ? '<table><tr><th>时间</th><th>姓名</th><th>模式</th><th>成绩</th></tr>' +
-                rs.map(r => '<tr><td>' + esc(r.time) + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.mode) +
-                '</td><td>' + r.score + '分</td></tr>').join('') + '</table>' : '暂无记录';
+            return rs.length ? 
+                '<table><tr><th>时间</th><th>姓名</th><th>模式</th><th>成绩</th></tr>' +
+                rs.map(r => '<tr><td>' + esc(r.time) + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.mode) + '</td><td>' + r.score + '分</td></tr>').join('') + 
+                '</table>' : '暂无记录';
         }
 
         function saveUsers() {
@@ -453,7 +350,7 @@
             refresh();
         }
 
-        // --- 题库文件导入 ---
+        // --- 导入题库 ---
         $('file').onchange = async e => {
             let f = e.target.files[0];
             if (!f) return;
@@ -462,8 +359,7 @@
             bank = rows.map(r => ({
                 type: r['题型'] || '单选题',
                 title: r['题目'],
-                opts: ['选项A', '选项B', '选项C', '选项D'].map(k => r[k]).filter(Boolean).map((v, i) => 'ABCD' [i] +
-                    '.' + v),
+                opts: ['选项A','选项B','选项C','选项D'].map(k => r[k]).filter(Boolean).map((v,i) => 'ABCD'[i]+'.'+v),
                 ans: String(r['正确答案'] || '').trim(),
                 cat: r['所属分类'] || '',
                 ana: r['解析'] || ''
@@ -473,8 +369,8 @@
             alert('导入成功：' + bank.length + '题');
         };
 
-        function csv(rows) {
-            return rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(',')).join('\n');
+        function csv(rows) { 
+            return rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(',')).join('\n'); 
         }
 
         function down(n, c) {
@@ -486,32 +382,27 @@
 
         function exportAll() {
             down('选一选矿车间安全知识答题_全部成绩.csv', csv([
-                ['时间', '姓名', '模式', '成绩'],
+                ['时间','姓名','模式','成绩'],
                 ...records.map(r => [r.time, r.name, r.mode, r.score])
             ]));
         }
 
         function exportMine() {
             down('选一选矿车间安全知识答题_我的成绩.csv', csv([
-                ['时间', '姓名', '模式', '成绩'],
+                ['时间','姓名','模式','成绩'],
                 ...records.filter(r => r.name === me).map(r => [r.time, r.name, r.mode, r.score])
             ]));
         }
 
         function template() {
             down('题库模板.csv', csv([
-                ['题型', '题目', '选项A', '选项B', '选项C', '选项D', '正确答案', '所属分类', '解析'],
-                ['单选题', '发现隐患怎么办', '立即报告', '继续作业', '不处理', '等待', 'A', '隐患排查', '及时报告']
+                ['题型','题目','选项A','选项B','选项C','选项D','正确答案','所属分类','解析'],
+                ['单选题','发现隐患怎么办','立即报告','继续作业','不处理','等待','A','隐患排查','及时报告']
             ]));
         }
 
-        function clearBank() { if (confirm('清空题库？')) { bank = [];
-                save();
-                refresh() } }
-
-        function clearRecords() { if (confirm('清空成绩？')) { records = [];
-                save();
-                refresh() } }
+        function clearBank() { if (confirm('清空题库？')) { bank = []; save(); refresh(); } }
+        function clearRecords() { if (confirm('清空成绩？')) { records = []; save(); refresh(); } }
     </script>
 </body>
 </html>
