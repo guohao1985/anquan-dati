@@ -1,408 +1,744 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>选一选矿车间安全知识答题 (终极修复版)</title>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>企业安全教育培训考试系统</title>
     <style>
-        body { margin: 0; font-family: Arial, 'Microsoft YaHei', sans-serif; background: #f4f7fb; color: #172033; }
-        .top { background: linear-gradient(135deg, #0f172a, #1d4ed8); color: #fff; padding: 18px 24px; }
-        .top b { font-size: 24px; }
-        .wrap { max-width: 1180px; margin: auto; padding: 20px; }
-        .card { background: white; border: 1px solid #dbe3ef; border-radius: 16px; padding: 18px; margin: 14px 0; box-shadow: 0 6px 18px #0f172a12; }
-        .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; }
-        textarea { min-height: 120px; }
-        button { border: 0; border-radius: 10px; padding: 10px 14px; background: #2563eb; color: #fff; font-weight: 700; cursor: pointer; }
-        button.gray { background: #64748b; }
-        button.red { background: #dc2626; }
-        button.light { background: #eef2ff; color: #1e40af; }
-        .hide { display: none; }
-        .msg { padding: 10px; border-radius: 10px; background: #eff6ff; margin-top: 10px; }
-        .q { border: 1px solid #dbe3ef; border-radius: 12px; padding: 14px; margin: 12px 0; }
-        .opt { display: block; border: 1px solid #e2e8f0; border-radius: 10px; margin: 8px 0; padding: 8px; }
-        .opt input { width: auto; }
-        .input-block { margin: 8px 0; display: block; }
-        .input-block input[type="text"] { width: 100%; max-width: 300px; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        td, th { border-bottom: 1px solid #e2e8f0; padding: 8px; text-align: left; }
-        .ok { color: #16a34a; font-weight: 800; }
-        .bad { color: #dc2626; font-weight: 800; }
-        @media(max-width:800px) { .grid { grid-template-columns: 1fr; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.15);
+        }
+
+        /* 头部 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1em;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        /* 表单 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* 表格 */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #333;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        /* 选项卡 */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 题目卡片 */
+        .question-item {
+            background: #f9fafb;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            background: #e0e7ff;
+        }
+
+        .option input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        /* 进度条 */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            
+            th, td {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="top">
-        <b>选一选矿车间安全知识答题</b>
-        <div>每日练习 · 安全知识 · 在线答题 · 成绩统计</div>
-    </div>
-    <div class="wrap">
-        <!-- 登录界面 -->
-        <section id="login" class="card">
-            <h2>登录</h2>
-            <div class="grid">
-                <div>
-                    <label>身份</label>
-                    <select id="role">
-                        <option value="emp">员工</option>
-                        <option value="admin">管理员</option>
-                    </select>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 企业安全教育培训考试系统</h1>
+            <p>安全生产 | 规范操作 | 应急处理 | 事故预防</p>
+        </div>
+
+        <!-- 选项卡 -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('exam')">📝 在线考试</button>
+            <button class="tab" onclick="switchTab('manage')">👥 员工管理</button>
+            <button class="tab" onclick="switchTab('questions')">📚 题库管理</button>
+            <button class="tab" onclick="switchTab('records')">📊 成绩记录</button>
+            <button class="tab" onclick="switchTab('stats')">📈 统计分析</button>
+        </div>
+
+        <!-- 在线考试 -->
+        <div id="exam" class="tab-content active">
+            <div class="card">
+                <div id="employeeVerify">
+                    <h3>员工身份验证</h3>
+                    <div class="form-group">
+                        <label>工号</label>
+                        <input type="text" id="employeeId" placeholder="请输入您的工号" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>姓名</label>
+                        <input type="text" id="employeeName" placeholder="请输入您的姓名" autocomplete="off">
+                    </div>
+                    <button class="btn btn-primary" onclick="verifyEmployee()">开始考试</button>
                 </div>
-                <div>
-                    <label>姓名 / 密码</label>
-                    <input id="name" placeholder="员工输入姓名；管理员输入密码">
+                
+                <div id="examArea" style="display:none;">
+                    <div id="examHeader">
+                        <h3 id="welcomeMsg"></h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                            <span>第 <span id="currentQ">1</span> / <span id="totalQ">0</span> 题</span>
+                            <span>得分: <span id="scoreDisplay">0</span></span>
+                            <span>剩余时间: <span id="timer">00:00</span></span>
+                        </div>
+                    </div>
+                    <div id="questionArea"></div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                        <button class="btn" onclick="prevQuestion()">上一题</button>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">下一题</button>
+                        <button class="btn btn-success" id="submitBtn" style="display:none;" onclick="submitExam()">提交试卷</button>
+                    </div>
                 </div>
             </div>
-            <button onclick="login()" style="margin-top:12px">进入</button>
-            <button class="light" onclick="demo()">加载演示数据</button>
-            <div id="loginMsg" class="msg hide"></div>
-        </section>
+        </div>
 
-        <!-- 主应用界面 -->
-        <main id="app" class="hide">
-            <div class="row">
-                <button onclick="tab('home')">首页</button>
-                <button onclick="tab('exam')">开始答题</button>
-                <button onclick="tab('mine')">我的成绩</button>
-                <button id="adminBtn" onclick="tab('admin')">管理员</button>
-                <button class="gray" onclick="logout()">退出</button>
+        <!-- 员工管理 -->
+        <div id="manage" class="tab-content">
+            <div class="card">
+                <h3>👥 员工信息管理</h3>
+                <div class="form-group">
+                    <button class="btn btn-primary" onclick="showImportModal()">📤 导入员工名单(Excel/JSON)</button>
+                    <button class="btn btn-success" onclick="downloadEmployeeTemplate()">📥 下载模板</button>
+                </div>
+                <div class="table-container">
+                    <table id="employeeTable">
+                        <thead>
+                            <tr><th>工号</th><th>姓名</th><th>部门</th><th>岗位</th><th>操作</th></tr>
+                        </thead>
+                        <tbody id="employeeList"></tbody>
+                    </table>
+                </div>
             </div>
+        </div>
 
-            <section id="home" class="card page">
-                <h2>首页</h2>
-                <p id="welcome"></p>
-                <p>题库：<b id="qCount">0</b> 题；员工名单：<b id="uCount">0</b> 人。</p>
-            </section>
-
-            <section id="exam" class="card page hide">
-                <h2>安全知识答题</h2>
-                <div class="grid">
-                    <div><label>抽题数量</label><input id="num" type="number" value="10"></div>
-                    <div><label>模式</label><select id="mode"><option value="daily">每日答题</option><option value="practice">练习模式</option></select></div>
+        <!-- 题库管理 -->
+        <div id="questions" class="tab-content">
+            <div class="card">
+                <h3>📚 安全知识题库</h3>
+                <button class="btn btn-primary" onclick="addQuestion()">➕ 添加题目</button>
+                <div class="table-container">
+                    <table id="questionTable">
+                        <thead><tr><th>序号</th><th>题目</th><th>选项</th><th>正确答案</th><th>操作</th></tr></thead>
+                        <tbody id="questionList"></tbody>
+                    </table>
                 </div>
-                <button onclick="start()" style="margin-top:12px">开始</button>
-                <button onclick="submitExam()" class="gray">提交</button>
-                <div id="paper"></div>
-                <div id="result"></div>
-            </section>
+            </div>
+        </div>
 
-            <section id="mine" class="card page hide">
-                <h2>我的成绩</h2>
-                <button class="light" onclick="exportMine()">导出我的成绩</button>
-                <div id="mineBox"></div>
-            </section>
-
-            <section id="admin" class="card page hide">
-                <h2>管理员面板</h2>
-                <h3>⚙️ 安全设置</h3>
-                <div class="row">
-                    <input id="newAdminPwd" type="password" placeholder="输入新管理员密码" style="max-width:200px;display:inline-block;">
-                    <button class="light" onclick="changeAdminPwd()">修改密码</button>
+        <!-- 成绩记录 -->
+        <div id="records" class="tab-content">
+            <div class="card">
+                <h3>📊 考试成绩记录</h3>
+                <div class="table-container">
+                    <table id="recordTable">
+                        <thead><tr><th>工号</th><th>姓名</th><th>部门</th><th>得分</th><th>正确率</th><th>考试时间</th></tr></thead>
+                        <tbody id="recordList"></tbody>
+                    </table>
                 </div>
-                <hr>
-                <h3>📥 导入题库</h3>
-                <p>Excel/CSV表头：题型、题目、选项A、选项B、选项C、选项D、正确答案、所属分类、解析</p>
-                <p><strong>注：</strong>判断题选项填“正确,错误”；填空题选项留空，答案填写正确答案文本。</p>
-                <input type="file" id="file">
-                <button class="light" onclick="template()">下载题库模板</button>
-                <button class="red" onclick="clearBank()">清空题库</button>
+            </div>
+        </div>
 
-                <h3>👤 员工白名单</h3>
-                <div class="row" style="margin-bottom:5px;">
-                    <input type="file" id="userFileInput" accept=".csv,.xlsx" style="width:auto;flex:1;">
-                    <button class="light" onclick="importUsersFromFile()">📂 导入名单</button>
+        <!-- 统计分析 -->
+        <div id="stats" class="tab-content">
+            <div class="card">
+                <h3>📈 数据统计分析</h3>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-number" id="totalEmployees">0</div><div class="stat-label">总员工数</div></div>
+                    <div class="stat-card"><div class="stat-number" id="totalExams">0</div><div class="stat-label">已完成考试</div></div>
+                    <div class="stat-card"><div class="stat-number" id="avgScore">0</div><div class="stat-label">平均分</div></div>
+                    <div class="stat-card"><div class="stat-number" id="passRate">0</div><div class="stat-label">及格率(≥60分)</div></div>
                 </div>
-                <textarea id="users" placeholder="张三,生产部,操作工&#10;李四,选矿车间,班组长"></textarea>
-                <button onclick="saveUsers()">保存名单</button>
-                <span style="font-size:12px;color:#666;margin-left:10px;">格式：姓名,部门,职务</span>
-
-                <h3>📊 全部成绩</h3>
-                <button class="light" onclick="exportAll()">导出全部成绩</button>
-                <button class="red" onclick="clearRecords()">清空成绩</button>
-                <div id="allBox"></div>
-            </section>
-        </main>
+                <canvas id="scoreChart" style="max-height: 400px;"></canvas>
+            </div>
+        </div>
     </div>
 
+    <!-- 导入模态框 -->
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <h3>导入员工名单</h3>
+            <div class="form-group">
+                <label>选择文件 (Excel/JSON)</label>
+                <input type="file" id="importFile" accept=".json,.xlsx,.xls">
+            </div>
+            <button class="btn btn-primary" onclick="importEmployees()">导入</button>
+            <button class="btn" onclick="closeModal()">取消</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // --- 初始化 & 兼容性修复 ---
-        // 如果 localStorage 是空的，不会报错，防止因旧数据残留导致双重显示
-        // 注意：这里为了修复 bug，我们让它重新读取标准数据
-
-        let bank = JSON.parse(localStorage.getItem('bank') || '[]');
-        let users = JSON.parse(localStorage.getItem('users') || '[]');
-        let records = JSON.parse(localStorage.getItem('records') || '[]');
-        let adminPwd = localStorage.getItem('adminPwd') || 'admin123'; 
-
-        let cur = [], me = null, admin = false;
-        let $ = id => document.getElementById(id);
-        let esc = s => String(s ?? '').replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
-
-        function save() {
-            localStorage.setItem('bank', JSON.stringify(bank));
-            localStorage.setItem('users', JSON.stringify(users));
-            localStorage.setItem('records', JSON.stringify(records));
-            localStorage.setItem('adminPwd', adminPwd);
-        }
-
-        function msg(t) { $('loginMsg').textContent = t; $('loginMsg').classList.remove('hide'); }
-
-        // --- 登录 ---
-        function login() {
-            let r = $('role').value, n = $('name').value.trim();
-            admin = (r === 'admin');
-            if (admin) {
-                if (n !== adminPwd) return msg('管理员密码错误');
-                me = '管理员';
-            } else {
-                if (!users.find(u => u.name === n)) return msg('姓名不在名单中，请联系管理员');
-                me = n;
-            }
-            $('login').classList.add('hide');
-            $('app').classList.remove('hide');
-            $('adminBtn').style.display = admin ? '' : 'none';
-            refresh();
-            tab('home');
-        }
-
-        function logout() { location.reload(); }
-
-        // --- 修改密码 ---
-        function changeAdminPwd() {
-            let p = $('newAdminPwd').value.trim();
-            if (!p) return alert('请输入新密码');
-            if (p.length < 6) return alert('密码至少6位');
-            if (!confirm('确定要修改管理员密码吗？请记住新密码！')) return;
-            adminPwd = p;
-            save();
-            alert('密码修改成功！请用新密码重新登录。');
-            logout();
-        }
-
-        function tab(id) {
-            document.querySelectorAll('.page').forEach(x => x.classList.add('hide'));
-            $(id).classList.remove('hide');
-            refresh();
-        }
-
-        function refresh() {
-            $('welcome').textContent = '当前用户：' + me + (admin ? '（管理员）' : '');
-            $('qCount').textContent = bank.length;
-            $('uCount').textContent = users.length;
-            $('users').value = users.map(u => [u.name, u.dept, u.post].join(',')).join('\n');
-            renderMine();
-            renderAll();
-            if (admin) $('newAdminPwd').placeholder = '当前密码已设置';
-        }
-
-        // --- 演示数据 ---
-        function demo() {
-            bank = [
-                { type: '判断题', title: '进入生产现场必须正确佩戴安全帽。', opts: ['正确','错误'], ans: '正确', cat: '基础安全', ana: '安全帽是基本防护用品。' },
-                { type: '单选题', title: '发现事故隐患后应当怎么做？', opts: ['A.立即报告并采取控制措施','B.继续作业','C.不处理','D.等待别人处理'], ans: 'A', cat: '隐患排查', ana: '隐患应及时报告。' },
-                { type: '多选题', title: '动火作业前应确认哪些内容？', opts: ['A.办理作业票','B.清理易燃物','C.配置灭火器材','D.无需监护'], ans: 'A,B,C', cat: '动火作业', ana: '动火必须审批、清理、配备消防器材。' },
-                { type: '填空题', title: '"三违"指违章指挥、违章作业和违反_____。', opts: [], ans: '劳动纪律', cat: '基础安全', ana: '三违：违章指挥、违章作业、违反劳动纪律。' }
+        // 初始化数据
+        let employees = JSON.parse(localStorage.getItem('employees') || '[]');
+        let questions = JSON.parse(localStorage.getItem('questions') || getDefaultQuestions());
+        let examRecords = JSON.parse(localStorage.getItem('examRecords') || '[]');
+        
+        let currentExam = { employee: null, answers: [], currentIndex: 0, score: 0, startTime: null, timer: null };
+        
+        // 默认题库
+        function getDefaultQuestions() {
+            return [
+                { id: 1, text: '发现火情时，首先应该做什么？', options: ['A. 立即灭火', 'B. 立即报警并疏散', 'C. 保护贵重物品', 'D. 等待领导指示'], answer: 1 },
+                { id: 2, text: '安全帽的正确佩戴方式是？', options: ['A. 随意戴在头上', 'B. 调整好内衬高度，系好下颏带', 'C. 反着戴', 'D. 只戴在头顶'], answer: 1 },
+                { id: 3, text: '以下哪项属于不安全行为？', options: ['A. 佩戴防护眼镜', 'B. 在禁烟区吸烟', 'C. 使用防护手套', 'D. 遵守操作规程'], answer: 1 },
+                { id: 4, text: '遇到触电事故，首先应该？', options: ['A. 直接用手拉触电者', 'B. 切断电源', 'C. 呼叫救护车', 'D. 用水泼'], answer: 1 },
+                { id: 5, text: '安全生产方针是什么？', options: ['A. 安全第一，预防为主', 'B. 效率第一', 'C. 质量第一', 'D. 效益第一'], answer: 0 }
             ];
-            users = [{ name: '测试用户', dept: '选矿车间', post: '员工' }];
-            save();
-            msg('演示数据已加载，员工可用“测试用户”登录。');
         }
-
-        // --- 导入员工 ---
-        function importUsersFromFile() {
-            let input = $('userFileInput');
-            if (!input.files || !input.files[0]) return alert('请先选择 CSV 或 Excel 文件');
-            let f = input.files[0];
-            let reader = new FileReader();
+        
+        // 保存数据
+        function saveData() {
+            localStorage.setItem('employees', JSON.stringify(employees));
+            localStorage.setItem('questions', JSON.stringify(questions));
+            localStorage.setItem('examRecords', JSON.stringify(examRecords));
+        }
+        
+        // 切换选项卡
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            
+            if (tabName === 'manage') renderEmployeeList();
+            if (tabName === 'questions') renderQuestionList();
+            if (tabName === 'records') renderRecordList();
+            if (tabName === 'stats') updateStatistics();
+        }
+        
+        // 验证员工
+        function verifyEmployee() {
+            const id = document.getElementById('employeeId').value.trim();
+            const name = document.getElementById('employeeName').value.trim();
+            
+            const employee = employees.find(e => e.id === id && e.name === name);
+            if (!employee) {
+                alert('员工验证失败！请检查工号和姓名是否正确');
+                return;
+            }
+            
+            // 检查是否已经考过试
+            const hasExam = examRecords.some(r => r.employeeId === id);
+            if (hasExam) {
+                alert('您已完成考试，不能重复参加！');
+                return;
+            }
+            
+            currentExam.employee = employee;
+            currentExam.answers = new Array(questions.length).fill(null);
+            currentExam.currentIndex = 0;
+            currentExam.score = 0;
+            currentExam.startTime = Date.now();
+            
+            document.getElementById('employeeVerify').style.display = 'none';
+            document.getElementById('examArea').style.display = 'block';
+            document.getElementById('welcomeMsg').innerHTML = `欢迎 ${employee.name} (${employee.dept}) 参加安全考试`;
+            document.getElementById('totalQ').innerText = questions.length;
+            
+            startTimer(30 * 60); // 30分钟倒计时
+            renderQuestion();
+        }
+        
+        // 开始计时
+        function startTimer(seconds) {
+            if (currentExam.timer) clearInterval(currentExam.timer);
+            let timeLeft = seconds;
+            
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                document.getElementById('timer').innerText = `${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(currentExam.timer);
+                    alert('时间到！系统将自动提交试卷');
+                    submitExam();
+                }
+                timeLeft--;
+            }
+            
+            updateTimer();
+            currentExam.timer = setInterval(updateTimer, 1000);
+        }
+        
+        // 渲染题目
+        function renderQuestion() {
+            const q = questions[currentExam.currentIndex];
+            const selected = currentExam.answers[currentExam.currentIndex];
+            
+            let html = `<div class="question-item"><div class="question-text">${currentExam.currentIndex + 1}. ${q.text}</div><div class="options">`;
+            q.options.forEach((opt, idx) => {
+                html += `<label class="option"><input type="radio" name="answer" value="${idx}" ${selected === idx ? 'checked' : ''} onchange="saveAnswer(${idx})"> ${opt}</label>`;
+            });
+            html += `</div></div>`;
+            
+            document.getElementById('questionArea').innerHTML = html;
+            document.getElementById('currentQ').innerText = currentExam.currentIndex + 1;
+            document.getElementById('progressFill').style.width = `${((currentExam.currentIndex + 1) / questions.length) * 100}%`;
+            
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (currentExam.currentIndex === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'inline-block';
+            } else {
+                nextBtn.style.display = 'inline-block';
+                submitBtn.style.display = 'none';
+            }
+        }
+        
+        function saveAnswer(answerIndex) {
+            currentExam.answers[currentExam.currentIndex] = answerIndex;
+        }
+        
+        function nextQuestion() {
+            if (currentExam.currentIndex < questions.length - 1) {
+                currentExam.currentIndex++;
+                renderQuestion();
+            }
+        }
+        
+        function prevQuestion() {
+            if (currentExam.currentIndex > 0) {
+                currentExam.currentIndex--;
+                renderQuestion();
+            }
+        }
+        
+        function submitExam() {
+            if (currentExam.timer) clearInterval(currentExam.timer);
+            
+            // 计算得分
+            let score = 0;
+            currentExam.answers.forEach((answer, idx) => {
+                if (answer !== null && answer === questions[idx].answer) {
+                    score++;
+                }
+            });
+            
+            const scorePercent = (score / questions.length) * 100;
+            
+            const record = {
+                employeeId: currentExam.employee.id,
+                employeeName: currentExam.employee.name,
+                department: currentExam.employee.dept,
+                score: scorePercent,
+                correctCount: score,
+                totalCount: questions.length,
+                examTime: new Date().toLocaleString(),
+                answers: currentExam.answers
+            };
+            
+            examRecords.push(record);
+            saveData();
+            
+            alert(`考试完成！得分：${scorePercent.toFixed(1)}分 (${score}/${questions.length})`);
+            
+            // 重置考试界面
+            document.getElementById('employeeVerify').style.display = 'block';
+            document.getElementById('examArea').style.display = 'none';
+            document.getElementById('employeeId').value = '';
+            document.getElementById('employeeName').value = '';
+            
+            renderRecordList();
+            updateStatistics();
+        }
+        
+        // 员工管理
+        function renderEmployeeList() {
+            const tbody = document.getElementById('employeeList');
+            tbody.innerHTML = employees.map(emp => `
+                <tr><td>${emp.id}</td><td>${emp.name}</td><td>${emp.dept}</td><td>${emp.position || '-'}</td>
+                <td><button class="btn btn-danger" onclick="deleteEmployee('${emp.id}')">删除</button></td></tr>
+            `).join('');
+        }
+        
+        function deleteEmployee(id) {
+            employees = employees.filter(e => e.id !== id);
+            saveData();
+            renderEmployeeList();
+            updateStatistics();
+        }
+        
+        function showImportModal() {
+            document.getElementById('importModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('importModal').style.display = 'none';
+        }
+        
+        function importEmployees() {
+            const file = document.getElementById('importFile').files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
             reader.onload = function(e) {
                 try {
-                    let data = new Uint8Array(e.target.result);
-                    let wb = XLSX.read(data, { type: 'array' });
-                    let rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '' });
-                    let newUsers = rows.map(r => ({
-                        name: String(r['姓名'] || r['name'] || '').trim(),
-                        dept: String(r['部门'] || r['dept'] || '').trim(),
-                        post: String(r['职务'] || r['post'] || '').trim()
-                    })).filter(u => u.name);
-                    if (!newUsers.length) return alert('未识别到有效用户，请确认文件包含“姓名”列');
-                    let map = {};
-                    users.forEach(u => map[u.name] = u);
-                    newUsers.forEach(u => map[u.name] = u);
-                    users = Object.values(map);
-                    save();
-                    refresh();
-                    alert('导入成功 ' + newUsers.length + ' 人，当前共 ' + users.length + ' 人');
-                } catch (err) { alert('文件解析失败：' + err.message); }
-            };
-            reader.readAsArrayBuffer(f);
-        }
-
-        function shuffle(a) { return [...a].sort(() => Math.random() - 0.5); }
-
-        // --- 核心修复：开始考试 (支持判断、填空) ---
-        function start() {
-            if (!bank.length) return alert('请先导入题库');
-            cur = shuffle(bank).slice(0, Math.min(+$('num').value || 10, bank.length));
-            let html = cur.map((q, i) => {
-                let typeRaw = (q.type || '').trim();
-                let isTrueFalse = typeRaw.includes('判断');
-                let isFill = typeRaw.includes('填空');
-                let isMulti = typeRaw.includes('多选');
-
-                let qhtml = '<div class=q><b>' + (i+1) + '. 【' + esc(typeRaw) + '】' + esc(q.title) + '</b>';
-
-                if (isTrueFalse) {
-                    // 渲染判断题：正确/错误
-                    let opts = (q.opts && q.opts.length > 0) ? q.opts : ['正确', '错误'];
-                    qhtml += opts.map(o => 
-                        '<label class=opt><input name=q' + i + ' type="radio" value="' + esc(o) + '"> ' + esc(o) + '</label>'
-                    ).join('');
-                } else if (isFill) {
-                    // 填空题
-                    qhtml += '<div class="input-block"><input type="text" name=q' + i + ' placeholder="请输入答案" style="width:100%;max-width:300px;"></div>';
-                } else if (isMulti) {
-                    // 多选题
-                    qhtml += q.opts.map(o => 
-                        '<label class=opt><input name=q' + i + ' type="checkbox" value="' + esc(o[0]) + '"> ' + esc(o) + '</label>'
-                    ).join('');
-                } else {
-                    // 单选题 (默认)
-                    qhtml += q.opts.map(o => 
-                        '<label class=opt><input name=q' + i + ' type="radio" value="' + esc(o[0]) + '"> ' + esc(o) + '</label>'
-                    ).join('');
+                    const data = JSON.parse(e.target.result);
+                    if (Array.isArray(data)) {
+                        employees = data;
+                        saveData();
+                        renderEmployeeList();
+                        updateStatistics();
+                        alert(`成功导入 ${data.length} 名员工`);
+                    }
+                } catch(err) {
+                    alert('文件格式错误，请使用JSON格式');
                 }
-                qhtml += '</div>';
-                return qhtml;
-            }).join('');
-            $('paper').innerHTML = html;
-            $('result').innerHTML = '';
-        }
-
-        // --- 获取答案 (修复版，兼容填空) ---
-        function getAnswer(i, q) {
-            let typeRaw = (q.type || '').trim();
-            if (typeRaw.includes('填空')) {
-                let inp = document.querySelector('[name=q' + i + ']');
-                return inp ? inp.value.trim() : '';
-            }
-            let sel = [...document.querySelectorAll('[name=q' + i + ']:checked')].map(x => x.value).sort().join(',');
-            return sel;
-        }
-
-        // --- 提交考试 ---
-        function submitExam() {
-            if (!cur.length) return;
-            let right = 0, det = [];
-            cur.forEach((q, i) => {
-                let a = getAnswer(i, q);
-                let isCorrect = false;
-                let stdAns = q.ans.split(',').map(s => s.trim()).sort().join(',');
-                if (q.type.includes('填空')) {
-                    isCorrect = (a.trim().toLowerCase() === q.ans.trim().toLowerCase());
-                } else {
-                    let userAns = a.split(',').map(s => s.trim()).sort().join(',');
-                    isCorrect = (userAns === stdAns);
-                }
-                if (isCorrect) right++;
-                det.push({ title: q.title, user: a, ans: q.ans, ok: isCorrect });
-            });
-            let score = Math.round(right / cur.length * 100);
-            let r = {
-                time: new Date().toLocaleString(),
-                name: me,
-                score,
-                right,
-                total: cur.length,
-                mode: $('mode').value,
-                det
+                closeModal();
             };
-            records.unshift(r);
-            save();
-            $('result').innerHTML = '<h3>得分：' + score + '分（' + right + '/' + cur.length + '）</h3>' +
-                det.map(d => '<p>' + esc(d.title) + '：' + (d.ok ? '<span class=ok>正确</span>' : '<span class=bad>错误</span>') + '，正确答案：' + esc(d.ans) + '</p>').join('');
-            refresh();
+            reader.readAsText(file);
         }
-
-        function renderMine() {
-            let rs = records.filter(r => r.name === me);
-            $('mineBox').innerHTML = table(rs);
-        }
-
-        function renderAll() {
-            $('allBox').innerHTML = table(records);
-        }
-
-        function table(rs) {
-            return rs.length ? 
-                '<table><tr><th>时间</th><th>姓名</th><th>模式</th><th>成绩</th></tr>' +
-                rs.map(r => '<tr><td>' + esc(r.time) + '</td><td>' + esc(r.name) + '</td><td>' + esc(r.mode) + '</td><td>' + r.score + '分</td></tr>').join('') + 
-                '</table>' : '暂无记录';
-        }
-
-        function saveUsers() {
-            users = $('users').value.split(/\n+/).map(l => {
-                let p = l.split(/[,，\t]/);
-                return { name: (p[0] || '').trim(), dept: (p[1] || '').trim(), post: (p[2] || '').trim() };
-            }).filter(u => u.name);
-            save();
-            refresh();
-        }
-
-        // --- 导入题库 ---
-        $('file').onchange = async e => {
-            let f = e.target.files[0];
-            if (!f) return;
-            let wb = XLSX.read(await f.arrayBuffer(), { type: 'array' });
-            let rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { defval: '' });
-            bank = rows.map(r => ({
-                type: r['题型'] || '单选题',
-                title: r['题目'],
-                opts: ['选项A','选项B','选项C','选项D'].map(k => r[k]).filter(Boolean).map((v,i) => 'ABCD'[i]+'.'+v),
-                ans: String(r['正确答案'] || '').trim(),
-                cat: r['所属分类'] || '',
-                ana: r['解析'] || ''
-            })).filter(q => q.title && q.ans);
-            save();
-            refresh();
-            alert('导入成功：' + bank.length + '题');
-        };
-
-        function csv(rows) { 
-            return rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(',')).join('\n'); 
-        }
-
-        function down(n, c) {
-            let a = document.createElement('a');
-            a.href = URL.createObjectURL(new Blob(['\ufeff' + c], { type: 'text/csv' }));
-            a.download = n;
+        
+        function downloadEmployeeTemplate() {
+            const template = [{ id: '001', name: '张三', dept: '生产部', position: '操作工' }];
+            const dataStr = JSON.stringify(template, null, 2);
+            const blob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'employee_template.json';
             a.click();
+            URL.revokeObjectURL(url);
         }
-
-        function exportAll() {
-            down('选一选矿车间安全知识答题_全部成绩.csv', csv([
-                ['时间','姓名','模式','成绩'],
-                ...records.map(r => [r.time, r.name, r.mode, r.score])
-            ]));
+        
+        // 题库管理
+        function renderQuestionList() {
+            const tbody = document.getElementById('questionList');
+            tbody.innerHTML = questions.map((q, idx) => `
+                <tr><td>${idx+1}</td><td>${q.text}</td><td>${q.options.join(' | ')}</td><td>${String.fromCharCode(65+q.answer)}</td>
+                <td><button class="btn btn-danger" onclick="deleteQuestion(${q.id})">删除</button></td></tr>
+            `).join('');
         }
-
-        function exportMine() {
-            down('选一选矿车间安全知识答题_我的成绩.csv', csv([
-                ['时间','姓名','模式','成绩'],
-                ...records.filter(r => r.name === me).map(r => [r.time, r.name, r.mode, r.score])
-            ]));
+        
+        function addQuestion() {
+            const text = prompt('请输入题目：');
+            if (!text) return;
+            const options = [];
+            for(let i=0; i<4; i++) {
+                const opt = prompt(`请输入选项 ${String.fromCharCode(65+i)}：`);
+                if(!opt) return;
+                options.push(opt);
+            }
+            const answer = prompt('请输入正确答案(A/B/C/D)：').toUpperCase();
+            const answerIndex = answer.charCodeAt(0) - 65;
+            
+            const newId = Math.max(...questions.map(q => q.id), 0) + 1;
+            questions.push({ id: newId, text, options, answer: answerIndex });
+            saveData();
+            renderQuestionList();
         }
-
-        function template() {
-            down('题库模板.csv', csv([
-                ['题型','题目','选项A','选项B','选项C','选项D','正确答案','所属分类','解析'],
-                ['单选题','发现隐患怎么办','立即报告','继续作业','不处理','等待','A','隐患排查','及时报告']
-            ]));
+        
+        function deleteQuestion(id) {
+            if(confirm('确定删除此题吗？')) {
+                questions = questions.filter(q => q.id !== id);
+                saveData();
+                renderQuestionList();
+            }
         }
-
-        function clearBank() { if (confirm('清空题库？')) { bank = []; save(); refresh(); } }
-        function clearRecords() { if (confirm('清空成绩？')) { records = []; save(); refresh(); } }
+        
+        // 成绩记录
+        function renderRecordList() {
+            const tbody = document.getElementById('recordList');
+            tbody.innerHTML = examRecords.map(r => `
+                <tr><td>${r.employeeId}</td><td>${r.employeeName}</td><td>${r.department}</td>
+                <td>${r.score.toFixed(1)}</td><td>${r.correctCount}/${r.totalCount}</td><td>${r.examTime}</td></tr>
+            `).join('');
+        }
+        
+        // 统计分析
+        function updateStatistics() {
+            document.getElementById('totalEmployees').innerText = employees.length;
+            document.getElementById('totalExams').innerText = examRecords.length;
+            
+            const avgScore = examRecords.length > 0 
+                ? (examRecords.reduce((sum, r) => sum + r.score, 0) / examRecords.length).toFixed(1)
+                : 0;
+            document.getElementById('avgScore').innerText = avgScore;
+            
+            const passCount = examRecords.filter(r => r.score >= 60).length;
+            const passRate = examRecords.length > 0 ? ((passCount / examRecords.length) * 100).toFixed(1) : 0;
+            document.getElementById('passRate').innerText = passRate + '%';
+        }
+        
+        // 初始化渲染
+        renderEmployeeList();
+        renderQuestionList();
+        renderRecordList();
+        updateStatistics();
+        
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
