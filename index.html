@@ -6,70 +6,30 @@
     <title>企业安全教育培训考试系统</title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
             padding: 20px;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; }
+        
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 15px 25px;
             margin-bottom: 20px;
             flex-wrap: wrap;
-            gap: 15px;
         }
-
-        .header h1 {
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .header h1 small {
-            font-size: 0.7rem;
-            opacity: 0.8;
-        }
-
-        .admin-btn {
-            background: #f59e0b;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            transition: 0.3s;
-        }
-
-        .admin-btn:hover {
-            background: #d97706;
-            transform: scale(1.02);
-        }
-
-        .tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
+        .header h1 { color: white; font-size: 1.5rem; }
+        .admin-btn { background: #f59e0b; color: white; padding: 8px 20px; border-radius: 30px; cursor: pointer; border: none; }
+        .logout-btn { background: #ef4444; color: white; padding: 8px 20px; border-radius: 30px; cursor: pointer; border: none; }
+        
+        .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
         .tab {
             padding: 10px 20px;
             background: rgba(255,255,255,0.2);
@@ -77,286 +37,122 @@
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: 0.3s;
-            font-size: 14px;
-            font-weight: 500;
         }
-
-        .tab.active {
-            background: white;
-            color: #1e3c72;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .tab:hover:not(.active) {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-            border-bottom: 2px solid #e5e7eb;
-            padding-bottom: 15px;
-        }
-
-        .card-header h2 {
-            color: #1e3c72;
-            font-size: 1.3rem;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(30,60,114,0.4);
-        }
-
-        .btn-success {
-            background: #10b981;
-            color: white;
-        }
-
-        .btn-danger {
-            background: #ef4444;
-            color: white;
-        }
-
-        .btn-warning {
-            background: #f59e0b;
-            color: white;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #1e3c72;
-        }
-
-        .table-container {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        th {
-            background: #f8fafc;
-            font-weight: 600;
-            color: #1e3c72;
-        }
-
-        tr:hover {
-            background: #f1f5f9;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            max-width: 500px;
-            width: 90%;
-        }
-
-        .question-card {
-            background: #f8fafc;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .option {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: white;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .option:hover {
-            border-color: #1e3c72;
-            background: #eff6ff;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e5e7eb;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 15px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            transition: width 0.3s;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            padding: 15px;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .card {
-                padding: 15px;
-            }
-            .tab {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-            th, td {
-                font-size: 12px;
-                padding: 8px;
-            }
-        }
+        .tab.active { background: white; color: #1e3c72; }
+        
+        .card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 20px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb; padding-bottom: 15px; flex-wrap: wrap; }
+        .card-header h2 { color: #1e3c72; }
+        
+        .btn { padding: 8px 16px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; margin: 2px; }
+        .btn-primary { background: #1e3c72; color: white; }
+        .btn-success { background: #10b981; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-warning { background: #f59e0b; color: white; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 2px solid #e5e7eb; border-radius: 8px; }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        th { background: #f8fafc; }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; border-radius: 20px; padding: 25px; max-width: 500px; width: 90%; }
+        
+        .question-card { background: #f8fafc; border-radius: 15px; padding: 20px; margin-bottom: 20px; }
+        .options { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+        .option { display: flex; align-items: center; gap: 12px; padding: 12px; background: white; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
+        .option:hover { border-color: #1e3c72; background: #eff6ff; }
+        .progress-bar { width: 100%; height: 10px; background: #e5e7eb; border-radius: 10px; overflow: hidden; margin: 15px 0; }
+        .progress-fill { height: 100%; background: #1e3c72; transition: width 0.3s; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 15px; border-radius: 15px; text-align: center; }
+        .stat-number { font-size: 28px; font-weight: bold; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        @media (max-width: 768px) { .card { padding: 15px; } .tab { padding: 6px 12px; } }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>🏭 企业安全教育培训考试系统 <small>专业版</small></h1>
-        <button class="admin-btn" id="adminBtn">👑 管理员登录</button>
+        <h1>🏭 企业安全教育培训考试系统</h1>
+        <div>
+            <button class="admin-btn" id="adminBtn">👑 管理员登录</button>
+            <button class="logout-btn" id="logoutBtn" style="display:none;">退出</button>
+        </div>
     </div>
 
     <div class="tabs">
-        <button class="tab active" data-tab="exam">📝 在线考试</button>
+        <button class="tab active" data-tab="exam">📝 每日考试</button>
+        <button class="tab" data-tab="practice">📖 练习模式</button>
         <button class="tab" data-tab="manage">👥 员工管理</button>
         <button class="tab" data-tab="questionBank">📚 题库管理</button>
         <button class="tab" data-tab="records">📊 成绩记录</button>
         <button class="tab" data-tab="stats">📈 统计分析</button>
-        <button class="tab admin-only" data-tab="admin" style="display:none;">⚙️ 系统设置</button>
+        <button class="tab admin-only" data-tab="admin" style="display:none;">⚙️ 系统管理</button>
     </div>
 
-    <!-- 在线考试 -->
+    <!-- 每日考试 -->
     <div id="exam" class="tab-content active">
         <div class="card">
             <div id="verifyPanel">
-                <h2>员工身份验证</h2>
-                <div class="form-group" style="margin-top:15px">
-                    <label>工号</label>
-                    <input type="text" id="empId" placeholder="请输入工号" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>姓名</label>
-                    <input type="text" id="empName" placeholder="请输入姓名" autocomplete="off">
-                </div>
-                <button class="btn btn-primary" id="startExamBtn" style="width:100%; padding:12px; font-size:16px">开始考试</button>
+                <h2>📅 每日安全考试</h2>
+                <p style="color:#666; margin-bottom:15px;">每天仅可考试一次</p>
+                <div class="form-group"><label>工号</label><input type="text" id="empId" placeholder="请输入工号"></div>
+                <div class="form-group"><label>姓名</label><input type="text" id="empName" placeholder="请输入姓名"></div>
+                <button class="btn btn-primary" id="startExamBtn" style="width:100%; padding:12px;">开始考试</button>
             </div>
             <div id="examPanel" style="display:none">
-                <div id="examHeader">
-                    <h3 id="welcomeMsg"></h3>
-                    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-                    <div style="display:flex; justify-content:space-between; margin-bottom:15px; flex-wrap:wrap; gap:10px">
-                        <span>📋 第 <span id="qIndex">1</span> / <span id="qTotal">0</span> 题</span>
-                        <span>⭐ 得分: <span id="curScore">0</span></span>
-                        <span>⏱️ 剩余: <span id="timer">30:00</span></span>
-                    </div>
+                <h3 id="welcomeMsg"></h3>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                    <span>第 <span id="qIndex">1</span> / <span id="qTotal">0</span> 题</span>
+                    <span>剩余: <span id="timer">30:00</span></span>
                 </div>
                 <div id="questionArea"></div>
-                <div style="display:flex; justify-content:space-between; margin-top:20px; gap:10px">
-                    <button class="btn btn-outline" id="prevBtn" style="background:#e5e7eb">◀ 上一题</button>
-                    <button class="btn btn-primary" id="nextBtn">下一题 ▶</button>
-                    <button class="btn btn-success" id="submitBtn" style="display:none">✅ 提交试卷</button>
+                <div style="display:flex; gap:10px; margin-top:20px;">
+                    <button class="btn" id="prevBtn" style="background:#e5e7eb">上一题</button>
+                    <button class="btn btn-primary" id="nextBtn">下一题</button>
+                    <button class="btn btn-success" id="submitBtn" style="display:none">提交</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 练习模式 -->
+    <div id="practice" class="tab-content">
+        <div class="card">
+            <div id="practiceVerifyPanel">
+                <h2>📖 练习模式</h2>
+                <p style="color:#666; margin-bottom:15px;">不限次数，不计入成绩</p>
+                <div class="form-group"><label>姓名（选填）</label><input type="text" id="practiceName" placeholder="可不填"></div>
+                <div class="form-group"><label>练习数量</label><select id="practiceCount"><option value="5">5题</option><option value="10" selected>10题</option><option value="20">20题</option></select></div>
+                <button class="btn btn-primary" id="startPracticeBtn" style="width:100%; padding:12px;">开始练习</button>
+            </div>
+            <div id="practicePanel" style="display:none">
+                <h3 id="practiceWelcomeMsg"></h3>
+                <div class="progress-bar"><div class="progress-fill" id="practiceProgressFill"></div></div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                    <span>第 <span id="practiceQIndex">1</span> / <span id="practiceQTotal">0</span> 题</span>
+                    <span>正确: <span id="practiceCorrectCount">0</span></span>
+                </div>
+                <div id="practiceQuestionArea"></div>
+                <div style="display:flex; gap:10px; margin-top:20px;">
+                    <button class="btn" id="practicePrevBtn" style="background:#e5e7eb">上一题</button>
+                    <button class="btn btn-primary" id="practiceNextBtn">下一题</button>
+                    <button class="btn btn-success" id="practiceViewResultBtn" style="display:none">查看结果</button>
+                </div>
+            </div>
+            <div id="practiceResultPanel" style="display:none">
+                <h3>练习结果</h3>
+                <div id="practiceResultContent"></div>
+                <button class="btn btn-primary" id="practiceAgainBtn" style="margin-top:20px">再练一次</button>
             </div>
         </div>
     </div>
@@ -364,83 +160,48 @@
     <!-- 员工管理 -->
     <div id="manage" class="tab-content">
         <div class="card">
-            <div class="card-header">
-                <h2>👥 员工信息管理</h2>
-                <div>
-                    <button class="btn btn-primary" id="importEmpBtn">📤 导入Excel/JSON</button>
-                    <button class="btn btn-success" id="exportEmpBtn">📥 导出员工数据</button>
-                </div>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead><tr><th>工号</th><th>姓名</th><th>部门</th><th>岗位</th><th>考试状态</th><th>操作</th></tr></thead>
-                    <tbody id="employeeTable"></tbody>
-                </table>
-            </div>
+            <div class="card-header"><h2>员工管理</h2><button class="btn btn-primary" id="importEmpBtn">导入员工</button></div>
+            <div class="table-container"><table><thead><tr><th>工号</th><th>姓名</th><th>部门</th><th>今日状态</th><th>操作</th></tr></thead><tbody id="employeeTable"></tbody></table></div>
         </div>
     </div>
 
     <!-- 题库管理 -->
     <div id="questionBank" class="tab-content">
         <div class="card">
-            <div class="card-header">
-                <h2>📚 安全知识题库</h2>
-                <div>
-                    <button class="btn btn-primary" id="addQuestionBtn">➕ 手动添加</button>
-                    <button class="btn btn-primary" id="importQuesBtn">📤 批量导入题库</button>
-                    <button class="btn btn-success" id="exportQuesBtn">📥 导出题库</button>
-                </div>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead><tr><th>序号</th><th>题目</th><th>选项A</th><th>选项B</th><th>选项C</th><th>选项D</th><th>答案</th><th>操作</th></tr></thead>
-                    <tbody id="questionTable"></tbody>
-                </table>
-            </div>
+            <div class="card-header"><h2>题库管理</h2><button class="btn btn-primary" id="importQuesBtn">导入题库</button></div>
+            <div class="table-container"><table><thead><tr><th>题目</th><th>选项</th><th>答案</th><th>操作</th></tr></thead><tbody id="questionTable"></tbody></table></div>
         </div>
     </div>
 
     <!-- 成绩记录 -->
     <div id="records" class="tab-content">
         <div class="card">
-            <div class="card-header">
-                <h2>📊 考试成绩记录</h2>
-                <button class="btn btn-success" id="exportRecordBtn">📥 导出成绩单</button>
-            </div>
-            <div class="table-container">
-                <table>
-                    <thead><tr><th>工号</th><th>姓名</th><th>部门</th><th>得分</th><th>正确数</th><th>考试时间</th></tr></thead>
-                    <tbody id="recordTable"></tbody>
-                </table>
-            </div>
+            <div class="card-header"><h2>成绩记录</h2><button class="btn btn-success" id="exportRecordBtn">导出成绩</button></div>
+            <div class="table-container"><table><thead><tr><th>日期</th><th>姓名</th><th>得分</th><th>详情</th></tr></thead><tbody id="recordTable"></tbody></table></div>
         </div>
     </div>
 
     <!-- 统计分析 -->
     <div id="stats" class="tab-content">
         <div class="card">
-            <div class="card-header"><h2>📈 数据统计分析</h2></div>
+            <div class="card-header"><h2>统计分析</h2></div>
             <div class="stats-grid" id="statsGrid"></div>
-            <canvas id="scoreChart" style="max-height: 350px; width:100%"></canvas>
         </div>
     </div>
 
-    <!-- 系统设置 -->
+    <!-- 系统管理 -->
     <div id="admin" class="tab-content">
         <div class="card">
-            <div class="card-header"><h2>⚙️ 系统设置</h2></div>
-            <div class="form-group">
-                <label>考试时间限制（分钟）</label>
-                <input type="number" id="examTimeLimit" value="30" style="width:150px">
-                <button class="btn btn-primary" id="saveSettingsBtn">保存设置</button>
-            </div>
+            <div class="card-header"><h2>系统设置</h2></div>
+            <div class="form-group"><label>每日抽题数量</label><input type="number" id="dailyCount" value="10"></div>
+            <div class="form-group"><label>考试时间(分钟)</label><input type="number" id="dailyTime" value="30"></div>
+            <button class="btn btn-primary" id="saveSettingsBtn">保存设置</button>
             <hr style="margin:20px 0">
-            <h3>数据管理</h3>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:15px">
-                <button class="btn btn-danger" id="clearDataBtn">🗑️ 清空所有数据</button>
-                <button class="btn btn-primary" id="backupDataBtn">💾 备份数据</button>
-                <button class="btn btn-primary" id="restoreDataBtn">📂 恢复数据</button>
-            </div>
+            <div class="form-group"><label>修改密码</label><input type="password" id="newPwd" placeholder="新密码"></div>
+            <button class="btn btn-primary" id="changePwdBtn">修改密码</button>
+            <hr style="margin:20px 0">
+            <button class="btn btn-danger" id="clearDataBtn">清空所有数据</button>
+            <button class="btn btn-warning" id="resetDailyBtn">重置今日考试状态</button>
         </div>
     </div>
 </div>
@@ -449,383 +210,304 @@
 <div id="importModal" class="modal">
     <div class="modal-content">
         <h3 id="importTitle">导入数据</h3>
-        <input type="file" id="importFile" accept=".json,.xlsx,.xls" style="width:100%; margin:15px 0">
-        <div style="display:flex; gap:10px; justify-content:flex-end">
-            <button class="btn btn-primary" id="confirmImportBtn">导入</button>
-            <button class="btn" id="closeModalBtn">取消</button>
-        </div>
+        <input type="file" id="importFile" accept=".json,.xlsx,.xls">
+        <div style="margin-top:15px"><button class="btn btn-primary" id="confirmImportBtn">导入</button><button class="btn" id="closeModalBtn">取消</button></div>
     </div>
 </div>
 
-<!-- 管理员登录模态框 -->
 <div id="adminLoginModal" class="modal">
     <div class="modal-content">
         <h3>管理员登录</h3>
-        <input type="password" id="adminPassword" placeholder="请输入管理员密码" style="width:100%; padding:12px; margin:15px 0">
-        <div style="display:flex; gap:10px; justify-content:flex-end">
-            <button class="btn btn-primary" id="loginBtn">登录</button>
-            <button class="btn" id="closeAdminModalBtn">取消</button>
-        </div>
-        <p style="margin-top:10px; font-size:12px; color:#999">默认密码: admin123</p>
+        <input type="password" id="adminPwd" placeholder="密码" style="width:100%; padding:10px; margin:15px 0">
+        <button class="btn btn-primary" id="loginBtn">登录</button>
+        <button class="btn" id="closeAdminModalBtn">取消</button>
+        <p style="margin-top:10px; color:#999">默认密码: admin123</p>
     </div>
 </div>
 
 <script>
-    // 预置员工数据（基于您提供的名单）
-    const defaultEmployees = [
-        {"id": "001", "name": "张三", "dept": "安全部", "position": "班组长"},
-        {"id": "002", "name": "李四", "dept": "生产部", "position": "操作工"},
-        {"id": "003", "name": "李见功", "dept": "选矿车间", "position": ""},
-        {"id": "004", "name": "张高飞", "dept": "选矿车间", "position": ""},
-        {"id": "005", "name": "王站武", "dept": "选矿车间", "position": ""},
-        {"id": "006", "name": "高贵安", "dept": "选矿车间", "position": ""},
-        {"id": "007", "name": "卫强", "dept": "选矿车间", "position": ""},
-        {"id": "008", "name": "张丽", "dept": "选矿车间", "position": ""},
-        {"id": "009", "name": "姬文丽", "dept": "选矿车间", "position": ""},
-        {"id": "010", "name": "马康乐", "dept": "选矿车间", "position": ""},
-        {"id": "011", "name": "李海芳", "dept": "选矿车间", "position": ""},
-        {"id": "012", "name": "李杏杏", "dept": "选矿车间", "position": ""},
-        {"id": "013", "name": "董方亮", "dept": "选矿车间", "position": ""},
-        {"id": "014", "name": "李国阳", "dept": "选矿车间", "position": ""},
-        {"id": "015", "name": "崔新兵", "dept": "选矿车间", "position": ""},
-        {"id": "016", "name": "陶松林", "dept": "选矿车间", "position": ""},
-        {"id": "017", "name": "张团", "dept": "选矿车间", "position": ""},
-        {"id": "018", "name": "陈珂珂", "dept": "选矿车间", "position": ""},
-        {"id": "019", "name": "张伊飞", "dept": "选矿车间", "position": ""},
-        {"id": "020", "name": "周启帆", "dept": "选矿车间", "position": ""},
-        {"id": "021", "name": "荆亚琪", "dept": "选矿车间", "position": ""},
-        {"id": "022", "name": "李雅丽", "dept": "选矿车间", "position": ""},
-        {"id": "023", "name": "常晓琳", "dept": "选矿车间", "position": ""},
-        {"id": "024", "name": "马雯婷", "dept": "选矿车间", "position": ""},
-        {"id": "025", "name": "尚红卫", "dept": "选矿车间", "position": ""},
-        {"id": "026", "name": "张景亮", "dept": "选矿车间", "position": ""},
-        {"id": "027", "name": "赵俊豪", "dept": "选矿车间", "position": ""},
-        {"id": "028", "name": "刘宝宝", "dept": "选矿车间", "position": ""},
-        {"id": "029", "name": "赵展鹏", "dept": "选矿车间", "position": ""},
-        {"id": "030", "name": "武松阁", "dept": "选矿车间", "position": ""},
-        {"id": "031", "name": "刘小妞", "dept": "选矿车间", "position": ""},
-        {"id": "032", "name": "张聪聪", "dept": "选矿车间", "position": ""},
-        {"id": "033", "name": "薛丽君", "dept": "选矿车间", "position": ""},
-        {"id": "034", "name": "刘怡彤", "dept": "选矿车间", "position": ""},
-        {"id": "035", "name": "常新会", "dept": "选矿车间", "position": ""},
-        {"id": "036", "name": "李丹丹", "dept": "选矿车间", "position": ""},
-        {"id": "037", "name": "陈忠月", "dept": "选矿车间", "position": ""},
-        {"id": "038", "name": "吕九江", "dept": "选矿车间", "position": ""},
-        {"id": "039", "name": "张小雷", "dept": "选矿车间", "position": ""},
-        {"id": "040", "name": "张书超", "dept": "选矿车间", "position": ""},
-        {"id": "041", "name": "郭红辉", "dept": "选矿车间", "position": ""},
-        {"id": "042", "name": "赵艳芳", "dept": "选矿车间", "position": ""},
-        {"id": "043", "name": "刘艳娟", "dept": "选矿车间", "position": ""},
-        {"id": "044", "name": "王闪闪", "dept": "选矿车间", "position": ""},
-        {"id": "045", "name": "张当敏", "dept": "选矿车间", "position": ""},
-        {"id": "046", "name": "尤丽君", "dept": "选矿车间", "position": ""},
-        {"id": "047", "name": "程志勇", "dept": "选矿车间", "position": ""},
-        {"id": "048", "name": "尤红太", "dept": "选矿车间", "position": ""},
-        {"id": "049", "name": "杜宗凯", "dept": "选矿车间", "position": ""},
-        {"id": "050", "name": "史剑波", "dept": "选矿车间", "position": ""},
-        {"id": "051", "name": "史康壮", "dept": "选矿车间", "position": ""},
-        {"id": "052", "name": "邓海涛", "dept": "选矿车间", "position": ""},
-        {"id": "053", "name": "杨建超", "dept": "选矿车间", "position": ""},
-        {"id": "054", "name": "康海波", "dept": "选矿车间", "position": ""},
-        {"id": "055", "name": "梁航航", "dept": "选矿车间", "position": ""},
-        {"id": "056", "name": "王艺国", "dept": "选矿车间", "position": ""},
-        {"id": "057", "name": "孟文波", "dept": "选矿车间", "position": ""},
-        {"id": "058", "name": "马丰利", "dept": "选矿车间", "position": ""},
-        {"id": "059", "name": "任吾", "dept": "选矿车间", "position": ""},
-        {"id": "060", "name": "尚海辰", "dept": "选矿车间", "position": ""},
-        {"id": "061", "name": "袁玉波", "dept": "选矿车间", "position": ""},
-        {"id": "062", "name": "周朝辉", "dept": "选矿车间", "position": ""},
-        {"id": "063", "name": "郭红阳", "dept": "选矿车间", "position": ""},
-        {"id": "064", "name": "赵东珂", "dept": "选矿车间", "position": ""},
-        {"id": "065", "name": "聂少毅", "dept": "选矿车间", "position": ""},
-        {"id": "066", "name": "杜豪园", "dept": "选矿车间", "position": ""},
-        {"id": "067", "name": "刘世昌", "dept": "选矿车间", "position": ""},
-        {"id": "068", "name": "武松雷", "dept": "选矿车间", "position": ""},
-        {"id": "069", "name": "李海飞", "dept": "选矿车间", "position": ""},
-        {"id": "070", "name": "刘露", "dept": "选矿车间", "position": ""},
-        {"id": "071", "name": "郭鹏举", "dept": "选矿车间", "position": ""},
-        {"id": "072", "name": "宋文杰", "dept": "选矿车间", "position": ""},
-        {"id": "073", "name": "张志杰", "dept": "选矿车间", "position": ""},
-        {"id": "074", "name": "徐满强", "dept": "选矿车间", "position": ""},
-        {"id": "075", "name": "闫智国", "dept": "选矿车间", "position": ""},
-        {"id": "076", "name": "辛红强", "dept": "选矿车间", "position": ""},
-        {"id": "077", "name": "任红丽", "dept": "选矿车间", "position": ""},
-        {"id": "078", "name": "郭伟", "dept": "选矿车间", "position": ""},
-        {"id": "079", "name": "尤建辉", "dept": "选矿车间", "position": ""},
-        {"id": "080", "name": "郭建矿", "dept": "选矿车间", "position": ""},
-        {"id": "081", "name": "王珂珂", "dept": "选矿车间", "position": ""},
-        {"id": "082", "name": "李彥祥", "dept": "选矿车间", "position": ""},
-        {"id": "083", "name": "芦娜娜", "dept": "选矿车间", "position": ""},
-        {"id": "084", "name": "崔紫琪", "dept": "选矿车间", "position": ""},
-        {"id": "085", "name": "李良毅", "dept": "选矿车间", "position": ""},
-        {"id": "086", "name": "上官芳", "dept": "选矿车间", "position": ""},
-        {"id": "087", "name": "李延锋", "dept": "选矿车间", "position": ""},
-        {"id": "088", "name": "任怡佳", "dept": "选矿车间", "position": ""},
-        {"id": "089", "name": "刘琪帆", "dept": "选矿车间", "position": ""},
-        {"id": "090", "name": "赵存波", "dept": "选矿车间", "position": ""},
-        {"id": "091", "name": "李花苹", "dept": "选矿车间", "position": ""},
-        {"id": "092", "name": "杨艳艳", "dept": "选矿车间", "position": ""},
-        {"id": "093", "name": "芮泽政", "dept": "选矿车间", "position": ""},
-        {"id": "094", "name": "蔡永春", "dept": "选矿车间", "position": ""},
-        {"id": "095", "name": "郭昊", "dept": "选矿车间", "position": ""},
-        {"id": "096", "name": "肖超", "dept": "选矿车间", "position": ""},
-        {"id": "097", "name": "卫泽源", "dept": "选矿车间", "position": ""},
-        {"id": "098", "name": "杨新智", "dept": "选矿车间", "position": ""},
-        {"id": "099", "name": "李庄", "dept": "选矿车间", "position": ""},
-        {"id": "100", "name": "王平", "dept": "选矿车间", "position": ""},
-        {"id": "101", "name": "周治东", "dept": "选矿车间", "position": ""},
-        {"id": "102", "name": "高杨杨", "dept": "选矿车间", "position": ""},
-        {"id": "103", "name": "杜跃伟", "dept": "选矿车间", "position": ""},
-        {"id": "104", "name": "张军", "dept": "选矿车间", "position": ""},
-        {"id": "105", "name": "谢伟", "dept": "选矿车间", "position": ""},
-        {"id": "106", "name": "常仁龙", "dept": "选矿车间", "position": ""},
-        {"id": "107", "name": "段准", "dept": "选矿车间", "position": ""},
-        {"id": "108", "name": "康军伟", "dept": "选矿车间", "position": ""},
-        {"id": "109", "name": "董向辉", "dept": "选矿车间", "position": ""},
-        {"id": "110", "name": "刘经铎", "dept": "选矿车间", "position": ""},
-        {"id": "111", "name": "代旺", "dept": "选矿车间", "position": ""},
-        {"id": "112", "name": "郭昊", "dept": "选矿车间", "position": ""}
+    // ==================== 预置112名员工数据 ====================
+    let employees = [
+        {"id": "001", "name": "张三", "dept": "安全部"},
+        {"id": "002", "name": "李四", "dept": "生产部"},
+        {"id": "003", "name": "李见功", "dept": "选矿车间"},
+        {"id": "004", "name": "张高飞", "dept": "选矿车间"},
+        {"id": "005", "name": "王站武", "dept": "选矿车间"},
+        {"id": "006", "name": "高贵安", "dept": "选矿车间"},
+        {"id": "007", "name": "卫强", "dept": "选矿车间"},
+        {"id": "008", "name": "张丽", "dept": "选矿车间"},
+        {"id": "009", "name": "姬文丽", "dept": "选矿车间"},
+        {"id": "010", "name": "马康乐", "dept": "选矿车间"},
+        {"id": "011", "name": "李海芳", "dept": "选矿车间"},
+        {"id": "012", "name": "李杏杏", "dept": "选矿车间"},
+        {"id": "013", "name": "董方亮", "dept": "选矿车间"},
+        {"id": "014", "name": "李国阳", "dept": "选矿车间"},
+        {"id": "015", "name": "崔新兵", "dept": "选矿车间"},
+        {"id": "016", "name": "陶松林", "dept": "选矿车间"},
+        {"id": "017", "name": "张团", "dept": "选矿车间"},
+        {"id": "018", "name": "陈珂珂", "dept": "选矿车间"},
+        {"id": "019", "name": "张伊飞", "dept": "选矿车间"},
+        {"id": "020", "name": "周启帆", "dept": "选矿车间"},
+        {"id": "021", "name": "荆亚琪", "dept": "选矿车间"},
+        {"id": "022", "name": "李雅丽", "dept": "选矿车间"},
+        {"id": "023", "name": "常晓琳", "dept": "选矿车间"},
+        {"id": "024", "name": "马雯婷", "dept": "选矿车间"},
+        {"id": "025", "name": "尚红卫", "dept": "选矿车间"},
+        {"id": "026", "name": "张景亮", "dept": "选矿车间"},
+        {"id": "027", "name": "赵俊豪", "dept": "选矿车间"},
+        {"id": "028", "name": "刘宝宝", "dept": "选矿车间"},
+        {"id": "029", "name": "赵展鹏", "dept": "选矿车间"},
+        {"id": "030", "name": "武松阁", "dept": "选矿车间"},
+        {"id": "031", "name": "刘小妞", "dept": "选矿车间"},
+        {"id": "032", "name": "张聪聪", "dept": "选矿车间"},
+        {"id": "033", "name": "薛丽君", "dept": "选矿车间"},
+        {"id": "034", "name": "刘怡彤", "dept": "选矿车间"},
+        {"id": "035", "name": "常新会", "dept": "选矿车间"},
+        {"id": "036", "name": "李丹丹", "dept": "选矿车间"},
+        {"id": "037", "name": "尚红卫", "dept": "选矿车间"},
+        {"id": "038", "name": "陈忠月", "dept": "选矿车间"},
+        {"id": "039", "name": "吕九江", "dept": "选矿车间"},
+        {"id": "040", "name": "张小雷", "dept": "选矿车间"},
+        {"id": "041", "name": "张书超", "dept": "选矿车间"},
+        {"id": "042", "name": "郭红辉", "dept": "选矿车间"},
+        {"id": "043", "name": "赵艳芳", "dept": "选矿车间"},
+        {"id": "044", "name": "刘艳娟", "dept": "选矿车间"},
+        {"id": "045", "name": "王闪闪", "dept": "选矿车间"},
+        {"id": "046", "name": "张当敏", "dept": "选矿车间"},
+        {"id": "047", "name": "尤丽君", "dept": "选矿车间"},
+        {"id": "048", "name": "程志勇", "dept": "选矿车间"},
+        {"id": "049", "name": "尤红太", "dept": "选矿车间"},
+        {"id": "050", "name": "杜宗凯", "dept": "选矿车间"},
+        {"id": "051", "name": "史剑波", "dept": "选矿车间"},
+        {"id": "052", "name": "史康壮", "dept": "选矿车间"},
+        {"id": "053", "name": "邓海涛", "dept": "选矿车间"},
+        {"id": "054", "name": "杨建超", "dept": "选矿车间"},
+        {"id": "055", "name": "康海波", "dept": "选矿车间"},
+        {"id": "056", "name": "梁航航", "dept": "选矿车间"},
+        {"id": "057", "name": "王艺国", "dept": "选矿车间"},
+        {"id": "058", "name": "孟文波", "dept": "选矿车间"},
+        {"id": "059", "name": "马丰利", "dept": "选矿车间"},
+        {"id": "060", "name": "任吾", "dept": "选矿车间"},
+        {"id": "061", "name": "尚海辰", "dept": "选矿车间"},
+        {"id": "062", "name": "袁玉波", "dept": "选矿车间"},
+        {"id": "063", "name": "周朝辉", "dept": "选矿车间"},
+        {"id": "064", "name": "郭红阳", "dept": "选矿车间"},
+        {"id": "065", "name": "赵东珂", "dept": "选矿车间"},
+        {"id": "066", "name": "聂少毅", "dept": "选矿车间"},
+        {"id": "067", "name": "杜豪园", "dept": "选矿车间"},
+        {"id": "068", "name": "刘世昌", "dept": "选矿车间"},
+        {"id": "069", "name": "武松雷", "dept": "选矿车间"},
+        {"id": "070", "name": "李海飞", "dept": "选矿车间"},
+        {"id": "071", "name": "刘露", "dept": "选矿车间"},
+        {"id": "072", "name": "郭鹏举", "dept": "选矿车间"},
+        {"id": "073", "name": "宋文杰", "dept": "选矿车间"},
+        {"id": "074", "name": "张志杰", "dept": "选矿车间"},
+        {"id": "075", "name": "徐满强", "dept": "选矿车间"},
+        {"id": "076", "name": "闫智国", "dept": "选矿车间"},
+        {"id": "077", "name": "辛红强", "dept": "选矿车间"},
+        {"id": "078", "name": "任红丽", "dept": "选矿车间"},
+        {"id": "079", "name": "郭伟", "dept": "选矿车间"},
+        {"id": "080", "name": "尤建辉", "dept": "选矿车间"},
+        {"id": "081", "name": "郭建矿", "dept": "选矿车间"},
+        {"id": "082", "name": "王珂珂", "dept": "选矿车间"},
+        {"id": "083", "name": "李彥祥", "dept": "选矿车间"},
+        {"id": "084", "name": "芦娜娜", "dept": "选矿车间"},
+        {"id": "085", "name": "崔紫琪", "dept": "选矿车间"},
+        {"id": "086", "name": "李良毅", "dept": "选矿车间"},
+        {"id": "087", "name": "上官芳", "dept": "选矿车间"},
+        {"id": "088", "name": "李延锋", "dept": "选矿车间"},
+        {"id": "089", "name": "任怡佳", "dept": "选矿车间"},
+        {"id": "090", "name": "刘琪帆", "dept": "选矿车间"},
+        {"id": "091", "name": "赵存波", "dept": "选矿车间"},
+        {"id": "092", "name": "李花苹", "dept": "选矿车间"},
+        {"id": "093", "name": "杨艳艳", "dept": "选矿车间"},
+        {"id": "094", "name": "芮泽政", "dept": "选矿车间"},
+        {"id": "095", "name": "郭昊", "dept": "选矿车间"},
+        {"id": "096", "name": "肖超", "dept": "选矿车间"},
+        {"id": "097", "name": "卫泽源", "dept": "选矿车间"},
+        {"id": "098", "name": "杨新智", "dept": "选矿车间"},
+        {"id": "099", "name": "李庄", "dept": "选矿车间"},
+        {"id": "100", "name": "王平", "dept": "选矿车间"},
+        {"id": "101", "name": "周治东", "dept": "选矿车间"},
+        {"id": "102", "name": "高杨杨", "dept": "选矿车间"},
+        {"id": "103", "name": "杜跃伟", "dept": "选矿车间"},
+        {"id": "104", "name": "张军", "dept": "选矿车间"},
+        {"id": "105", "name": "谢伟", "dept": "选矿车间"},
+        {"id": "106", "name": "常仁龙", "dept": "选矿车间"},
+        {"id": "107", "name": "段准", "dept": "选矿车间"},
+        {"id": "108", "name": "康军伟", "dept": "选矿车间"},
+        {"id": "109", "name": "董向辉", "dept": "选矿车间"},
+        {"id": "110", "name": "刘经铎", "dept": "选矿车间"},
+        {"id": "111", "name": "代旺", "dept": "选矿车间"},
+        {"id": "112", "name": "郭昊", "dept": "选矿车间"}
     ];
-
-    // 默认题库
-    const defaultQuestions = [
-        { id: 1, text: '发现火情时，首先应该做什么？', options: ['立即灭火', '立即报警并疏散', '保护贵重物品', '等待领导指示'], answer: 1 },
-        { id: 2, text: '安全帽的正确佩戴方式是？', options: ['随意戴在头上', '调整好内衬高度，系好下颏带', '反着戴', '只戴在头顶'], answer: 1 },
-        { id: 3, text: '以下哪项属于不安全行为？', options: ['佩戴防护眼镜', '在禁烟区吸烟', '使用防护手套', '遵守操作规程'], answer: 1 },
-        { id: 4, text: '遇到触电事故，首先应该？', options: ['直接用手拉触电者', '切断电源', '呼叫救护车', '用水泼'], answer: 1 },
-        { id: 5, text: '安全生产方针是什么？', options: ['安全第一，预防为主', '效率第一', '质量第一', '效益第一'], answer: 0 }
-    ];
-
-    // 初始化数据
-    let employees = [];
-    let questions = [];
-    let examRecords = [];
-    let settings = { timeLimit: 30 };
-    let isAdmin = false;
     
-    let currentExam = { emp: null, answers: [], curIndex: 0, timer: null };
-    let chart = null;
-    let importType = 'employee';
-
-    // 加载数据
-    function loadData() {
-        const storedEmployees = localStorage.getItem('employees');
-        const storedQuestions = localStorage.getItem('questions');
-        const storedRecords = localStorage.getItem('examRecords');
-        const storedSettings = localStorage.getItem('settings');
-        const storedAdmin = localStorage.getItem('isAdmin');
-        
-        employees = storedEmployees ? JSON.parse(storedEmployees) : [...defaultEmployees];
-        questions = storedQuestions ? JSON.parse(storedQuestions) : [...defaultQuestions];
-        examRecords = storedRecords ? JSON.parse(storedRecords) : [];
-        settings = storedSettings ? JSON.parse(storedSettings) : { timeLimit: 30 };
-        isAdmin = storedAdmin === 'true';
-        
-        if (storedAdmin === 'true') {
-            document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'inline-block');
-        }
-    }
-
-    function saveAll() {
+    let questions = [
+        { id: 1, text: "发现火情时，首先应该做什么？", options: ["立即灭火", "立即报警并疏散", "保护贵重物品", "等待领导指示"], answer: 1 },
+        { id: 2, text: "安全帽的正确佩戴方式是？", options: ["随意戴在头上", "调整好内衬，系好下颏带", "反着戴", "只戴在头顶"], answer: 1 },
+        { id: 3, text: "以下哪项属于不安全行为？", options: ["佩戴防护眼镜", "在禁烟区吸烟", "使用防护手套", "遵守规程"], answer: 1 },
+        { id: 4, text: "进入施工现场必须佩戴安全帽。", options: ["正确", "错误"], answer: 0 },
+        { id: 5, text: "安全生产方针是什么？", options: ["安全第一，预防为主", "效率第一", "质量第一", "效益第一"], answer: 0 }
+    ];
+    
+    let examRecords = [];
+    let dailyStatus = {};
+    let isAdmin = false;
+    let settings = { dailyCount: 10, dailyTime: 30 };
+    let admins = [{ username: "admin", password: "admin123" }];
+    let currentAdmin = null;
+    
+    let currentExam = { emp: null, questions: [], answers: [], curIndex: 0, timer: null };
+    let currentPractice = { name: "", questions: [], answers: [], curIndex: 0, correctCount: 0 };
+    let importType = "employee";
+    
+    function getToday() { return new Date().toISOString().slice(0,10); }
+    function hasTakenToday(empId) { return dailyStatus[`${getToday()}_${empId}`] === true; }
+    function markTaken(empId) { dailyStatus[`${getToday()}_${empId}`] = true; localStorage.setItem('dailyStatus', JSON.stringify(dailyStatus)); }
+    
+    function saveData() {
         localStorage.setItem('employees', JSON.stringify(employees));
         localStorage.setItem('questions', JSON.stringify(questions));
         localStorage.setItem('examRecords', JSON.stringify(examRecords));
+        localStorage.setItem('dailyStatus', JSON.stringify(dailyStatus));
         localStorage.setItem('settings', JSON.stringify(settings));
+        localStorage.setItem('admins', JSON.stringify(admins));
+        if (currentAdmin) localStorage.setItem('currentAdmin', currentAdmin);
     }
-
-    // 渲染表格
+    
+    function loadData() {
+        let stored = localStorage.getItem('employees');
+        if (stored) employees = JSON.parse(stored);
+        stored = localStorage.getItem('questions');
+        if (stored) questions = JSON.parse(stored);
+        stored = localStorage.getItem('examRecords');
+        if (stored) examRecords = JSON.parse(stored);
+        stored = localStorage.getItem('dailyStatus');
+        if (stored) dailyStatus = JSON.parse(stored);
+        stored = localStorage.getItem('settings');
+        if (stored) settings = JSON.parse(stored);
+        stored = localStorage.getItem('admins');
+        if (stored) admins = JSON.parse(stored);
+        currentAdmin = localStorage.getItem('currentAdmin');
+        if (currentAdmin) isAdmin = true;
+        
+        document.getElementById('dailyCount').value = settings.dailyCount;
+        document.getElementById('dailyTime').value = settings.dailyTime;
+        
+        if (isAdmin) {
+            document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'inline-block');
+            document.getElementById('adminBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+        }
+    }
+    
+    function getRandomQuestions(count) {
+        let shuffled = [...questions];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled.slice(0, Math.min(count, shuffled.length));
+    }
+    
     function renderEmployees() {
-        const tbody = document.getElementById('employeeTable');
-        if (!tbody) return;
-        tbody.innerHTML = employees.map(emp => {
-            const hasExam = examRecords.some(r => r.employeeId === emp.id);
-            return `<tr>
-                <td>${emp.id}</td>
-                <td>${emp.name}</td>
-                <td>${emp.dept || '-'}</td>
-                <td>${emp.position || '-'}</td>
-                <td>${hasExam ? '✅ 已完成' : '⏳ 未考试'}</td>
-                <td><button class="btn btn-danger" onclick="deleteEmployee('${emp.id}')">删除</button></td>
-            </tr>`;
-        }).join('');
+        let html = '';
+        employees.forEach(emp => {
+            let status = hasTakenToday(emp.id) ? '✅ 已完成' : '⏳ 未考试';
+            html += `<tr><td>${emp.id}</td><td>${emp.name}</td><td>${emp.dept}</td><td>${status}</td><td><button class="btn btn-danger" onclick="deleteEmployee('${emp.id}')">删除</button></td></tr>`;
+        });
+        document.getElementById('employeeTable').innerHTML = html;
     }
-
+    
     function renderQuestions() {
-        const tbody = document.getElementById('questionTable');
-        if (!tbody) return;
-        tbody.innerHTML = questions.map((q, idx) => `
-            <tr>
-                <td>${idx+1}</td>
-                <td>${q.text}</td>
-                <td>${q.options[0]}</td>
-                <td>${q.options[1]}</td>
-                <td>${q.options[2]}</td>
-                <td>${q.options[3]}</td>
-                <td>${String.fromCharCode(65+q.answer)}</td>
-                <td><button class="btn btn-danger" onclick="deleteQuestion(${q.id})">删除</button></td>
-            </tr>
-        `).join('');
+        let html = '';
+        questions.forEach((q, idx) => {
+            let optText = q.options.join(' | ');
+            let answer = String.fromCharCode(65 + q.answer);
+            html += `<tr><td>${q.text}</td><td>${optText}</td><td>${answer}</td><td><button class="btn btn-danger" onclick="deleteQuestion(${q.id})">删除</button></td></tr>`;
+        });
+        document.getElementById('questionTable').innerHTML = html;
     }
-
+    
     function renderRecords() {
-        const tbody = document.getElementById('recordTable');
-        if (!tbody) return;
-        tbody.innerHTML = examRecords.map(r => `
-            <tr>
-                <td>${r.employeeId}</td>
-                <td>${r.employeeName}</td>
-                <td>${r.department || '-'}</td>
-                <td><strong>${r.score.toFixed(1)}</strong></td>
-                <td>${r.correctCount}/${r.totalCount}</td>
-                <td>${r.examTime}</td>
-            </tr>
-        `).join('');
+        let html = '';
+        examRecords.forEach(r => {
+            html += `<tr><td>${r.date}</td><td>${r.name}</td><td>${r.score.toFixed(1)}分</td><td>${r.correct}/${r.total}</td></tr>`;
+        });
+        document.getElementById('recordTable').innerHTML = html;
+        
+        let total = examRecords.length;
+        let avg = total > 0 ? examRecords.reduce((s,r)=>s+r.score,0)/total : 0;
+        let pass = examRecords.filter(r=>r.score>=60).length;
+        let passRate = total > 0 ? (pass/total*100).toFixed(1) : 0;
+        document.getElementById('statsGrid').innerHTML = `
+            <div class="stat-card"><div class="stat-number">${employees.length}</div><div>总员工</div></div>
+            <div class="stat-card"><div class="stat-number">${total}</div><div>考试次数</div></div>
+            <div class="stat-card"><div class="stat-number">${avg.toFixed(1)}</div><div>平均分</div></div>
+            <div class="stat-card"><div class="stat-number">${passRate}%</div><div>及格率</div></div>
+        `;
     }
-
-    function updateStats() {
-        const totalEmp = employees.length;
-        const totalExam = examRecords.length;
-        const avgScore = totalExam > 0 ? (examRecords.reduce((s, r) => s + r.score, 0) / totalExam).toFixed(1) : 0;
-        const passCount = examRecords.filter(r => r.score >= 60).length;
-        const passRate = totalExam > 0 ? ((passCount / totalExam) * 100).toFixed(1) : 0;
-        const completion = totalEmp > 0 ? ((totalExam / totalEmp) * 100).toFixed(1) : 0;
+    
+    function startExam() {
+        let id = document.getElementById('empId').value.trim();
+        let name = document.getElementById('empName').value.trim();
+        let emp = employees.find(e => e.id === id && e.name === name);
+        if (!emp) { alert("验证失败！工号或姓名不正确"); return; }
+        if (hasTakenToday(id)) { alert("今日已完成考试！"); return; }
+        if (questions.length === 0) { alert("题库为空！"); return; }
         
-        const statsGrid = document.getElementById('statsGrid');
-        if (statsGrid) {
-            statsGrid.innerHTML = `
-                <div class="stat-card"><div class="stat-number">${totalEmp}</div><div>总员工数</div></div>
-                <div class="stat-card"><div class="stat-number">${totalExam}</div><div>已完成考试</div></div>
-                <div class="stat-card"><div class="stat-number">${avgScore}</div><div>平均分</div></div>
-                <div class="stat-card"><div class="stat-number">${passRate}%</div><div>及格率</div></div>
-                <div class="stat-card"><div class="stat-number">${completion}%</div><div>完成率</div></div>
-            `;
-        }
-        
-        const ctx = document.getElementById('scoreChart');
-        if (ctx && examRecords.length > 0) {
-            if (chart) chart.destroy();
-            const ranges = [0, 60, 80, 100];
-            const counts = [
-                examRecords.filter(r => r.score < 60).length,
-                examRecords.filter(r => r.score >= 60 && r.score < 80).length,
-                examRecords.filter(r => r.score >= 80 && r.score < 100).length,
-                examRecords.filter(r => r.score === 100).length
-            ];
-            chart = new Chart(ctx, {
-                type: 'bar',
-                data: { labels: ['不及格(<60)', '良好(60-80)', '优秀(80-99)', '满分(100)'], datasets: [{ label: '人数', data: counts, backgroundColor: '#2a5298' }] }
-            });
-        }
-    }
-
-    // 考试功能
-    function verifyAndStart() {
-        const id = document.getElementById('empId').value.trim();
-        const name = document.getElementById('empName').value.trim();
-        
-        if (!id || !name) {
-            alert('请填写工号和姓名！');
-            return;
-        }
-        
-        const emp = employees.find(e => e.id === id && e.name === name);
-        if (!emp) {
-            alert(`验证失败！未找到员工：${name}（工号：${id}）\n请检查工号和姓名是否正确。`);
-            return;
-        }
-        
-        if (examRecords.some(r => r.employeeId === id)) {
-            alert(`${name} 您已完成考试，不能重复参加！`);
-            return;
-        }
-        
-        if (questions.length === 0) {
-            alert('题库为空，请联系管理员添加题目！');
-            return;
-        }
-        
-        currentExam.emp = emp;
-        currentExam.answers = new Array(questions.length).fill(null);
-        currentExam.curIndex = 0;
+        let examQuestions = getRandomQuestions(settings.dailyCount);
+        currentExam = { emp: emp, questions: examQuestions, answers: new Array(examQuestions.length).fill(null), curIndex: 0, timer: null };
         
         document.getElementById('verifyPanel').style.display = 'none';
         document.getElementById('examPanel').style.display = 'block';
-        document.getElementById('welcomeMsg').innerHTML = `欢迎 ${emp.name} (${emp.dept || ''}) 参加安全考试`;
-        document.getElementById('qTotal').innerText = questions.length;
-        document.getElementById('curScore').innerText = '0';
+        document.getElementById('welcomeMsg').innerHTML = `欢迎 ${emp.name}，共${examQuestions.length}题`;
+        document.getElementById('qTotal').innerText = examQuestions.length;
         
-        let timeLeft = (settings.timeLimit || 30) * 60;
-        if (currentExam.timer) clearInterval(currentExam.timer);
-        const timerInterval = setInterval(() => {
-            const min = Math.floor(timeLeft / 60);
-            const sec = timeLeft % 60;
-            document.getElementById('timer').innerText = `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                alert('时间到！自动交卷');
-                submitExam();
-            }
+        let timeLeft = settings.dailyTime * 60;
+        let timerInterval = setInterval(() => {
+            let min = Math.floor(timeLeft/60);
+            let sec = timeLeft%60;
+            document.getElementById('timer').innerText = `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+            if (timeLeft <= 0) { clearInterval(timerInterval); alert("时间到！"); submitExam(); }
             timeLeft--;
         }, 1000);
         currentExam.timer = timerInterval;
-        renderCurrentQuestion();
+        renderQuestion();
     }
-
-    function renderCurrentQuestion() {
-        const q = questions[currentExam.curIndex];
-        if (!q) return;
+    
+    function renderQuestion() {
+        let q = currentExam.questions[currentExam.curIndex];
         let html = `<div class="question-card"><h3>${currentExam.curIndex+1}. ${q.text}</h3><div class="options">`;
         q.options.forEach((opt, idx) => {
-            const checked = currentExam.answers[currentExam.curIndex] === idx ? 'checked' : '';
-            html += `<label class="option"><input type="radio" name="q" value="${idx}" ${checked} onchange="saveAnswer(${idx})"> ${String.fromCharCode(65+idx)}. ${opt}</label>`;
+            let checked = currentExam.answers[currentExam.curIndex] === idx ? 'checked' : '';
+            html += `<label class="option"><input type="radio" name="q" value="${idx}" ${checked} onclick="saveAnswer(${idx})"> ${String.fromCharCode(65+idx)}. ${opt}</label>`;
         });
         html += `</div></div>`;
         document.getElementById('questionArea').innerHTML = html;
         document.getElementById('qIndex').innerText = currentExam.curIndex + 1;
-        document.getElementById('progressFill').style.width = `${((currentExam.curIndex + 1) / questions.length) * 100}%`;
+        document.getElementById('progressFill').style.width = `${((currentExam.curIndex+1)/currentExam.questions.length)*100}%`;
         
-        const isLast = currentExam.curIndex === questions.length - 1;
+        let isLast = currentExam.curIndex === currentExam.questions.length - 1;
         document.getElementById('nextBtn').style.display = isLast ? 'none' : 'inline-block';
         document.getElementById('submitBtn').style.display = isLast ? 'inline-block' : 'none';
     }
-
-    window.saveAnswer = function(ans) {
-        currentExam.answers[currentExam.curIndex] = ans;
-    }
-
-    window.nextQ = function() {
-        if (currentExam.curIndex < questions.length - 1) {
-            currentExam.curIndex++;
-            renderCurrentQuestion();
-        }
-    }
-
-    window.prevQ = function() {
-        if (currentExam.curIndex > 0) {
-            currentExam.curIndex--;
-            renderCurrentQuestion();
-        }
-    }
-
+    
+    window.saveAnswer = function(ans) { currentExam.answers[currentExam.curIndex] = ans; }
+    window.nextQuestion = function() { if (currentExam.curIndex < currentExam.questions.length-1) { currentExam.curIndex++; renderQuestion(); } }
+    window.prevQuestion = function() { if (currentExam.curIndex > 0) { currentExam.curIndex--; renderQuestion(); } }
+    
     function submitExam() {
         if (currentExam.timer) clearInterval(currentExam.timer);
         let correct = 0;
         currentExam.answers.forEach((ans, idx) => {
-            if (ans !== null && ans === questions[idx].answer) correct++;
+            if (ans !== null && ans === currentExam.questions[idx].answer) correct++;
         });
-        const score = (correct / questions.length) * 100;
-        const record = {
-            employeeId: currentExam.emp.id,
-            employeeName: currentExam.emp.name,
-            department: currentExam.emp.dept || '',
-            score: score,
-            correctCount: correct,
-            totalCount: questions.length,
-            examTime: new Date().toLocaleString()
-        };
-        examRecords.push(record);
-        saveAll();
-        alert(`考试完成！\n得分：${score.toFixed(1)}分 (${correct}/${questions.length})`);
+        let score = (correct / currentExam.questions.length) * 100;
+        examRecords.push({ date: getToday(), name: currentExam.emp.name, score: score, correct: correct, total: currentExam.questions.length });
+        markTaken(currentExam.emp.id);
+        saveData();
+        alert(`考试完成！得分：${score.toFixed(1)}分`);
         
         document.getElementById('verifyPanel').style.display = 'block';
         document.getElementById('examPanel').style.display = 'none';
@@ -833,189 +515,145 @@
         document.getElementById('empName').value = '';
         renderEmployees();
         renderRecords();
-        updateStats();
     }
-
-    // 管理功能
-    window.deleteEmployee = function(id) {
-        if (confirm('确定删除该员工吗？')) {
-            employees = employees.filter(e => e.id !== id);
-            saveAll();
-            renderEmployees();
-            updateStats();
+    
+    function startPractice() {
+        let name = document.getElementById('practiceName').value.trim() || "练习者";
+        let count = parseInt(document.getElementById('practiceCount').value);
+        if (questions.length === 0) { alert("题库为空！"); return; }
+        
+        let practiceQuestions = getRandomQuestions(count);
+        currentPractice = { name: name, questions: practiceQuestions, answers: new Array(practiceQuestions.length).fill(null), curIndex: 0, correctCount: 0 };
+        
+        document.getElementById('practiceVerifyPanel').style.display = 'none';
+        document.getElementById('practicePanel').style.display = 'block';
+        document.getElementById('practiceWelcomeMsg').innerHTML = `练习模式 - ${name}`;
+        document.getElementById('practiceQTotal').innerText = practiceQuestions.length;
+        renderPracticeQuestion();
+    }
+    
+    function renderPracticeQuestion() {
+        let q = currentPractice.questions[currentPractice.curIndex];
+        let html = `<div class="question-card"><h3>${currentPractice.curIndex+1}. ${q.text}</h3><div class="options">`;
+        q.options.forEach((opt, idx) => {
+            let checked = currentPractice.answers[currentPractice.curIndex] === idx ? 'checked' : '';
+            html += `<label class="option"><input type="radio" name="p" value="${idx}" ${checked} onclick="savePracticeAnswer(${idx})"> ${String.fromCharCode(65+idx)}. ${opt}</label>`;
+        });
+        html += `</div></div>`;
+        document.getElementById('practiceQuestionArea').innerHTML = html;
+        document.getElementById('practiceQIndex').innerText = currentPractice.curIndex + 1;
+        document.getElementById('practiceProgressFill').style.width = `${((currentPractice.curIndex+1)/currentPractice.questions.length)*100}%`;
+        
+        let isLast = currentPractice.curIndex === currentPractice.questions.length - 1;
+        document.getElementById('practiceNextBtn').style.display = isLast ? 'none' : 'inline-block';
+        document.getElementById('practiceViewResultBtn').style.display = isLast ? 'inline-block' : 'none';
+    }
+    
+    window.savePracticeAnswer = function(ans) {
+        currentPractice.answers[currentPractice.curIndex] = ans;
+        let correct = 0;
+        currentPractice.answers.forEach((a, idx) => { if (a !== null && a === currentPractice.questions[idx].answer) correct++; });
+        currentPractice.correctCount = correct;
+        document.getElementById('practiceCorrectCount').innerText = correct;
+    }
+    window.nextPractice = function() { if (currentPractice.curIndex < currentPractice.questions.length-1) { currentPractice.curIndex++; renderPracticeQuestion(); } }
+    window.prevPractice = function() { if (currentPractice.curIndex > 0) { currentPractice.curIndex--; renderPracticeQuestion(); } }
+    
+    function showPracticeResult() {
+        let correct = currentPractice.correctCount;
+        let total = currentPractice.questions.length;
+        let score = (correct/total)*100;
+        
+        let html = `<div style="text-align:center; padding:20px;"><div style="font-size:48px;">${score>=80?'🎉':score>=60?'👍':'💪'}</div>`;
+        html += `<div style="font-size:24px;">得分：${score.toFixed(1)}分</div><div>正确：${correct}/${total}</div></div>`;
+        
+        let wrongs = [];
+        currentPractice.answers.forEach((ans, idx) => {
+            if (ans !== null && ans !== currentPractice.questions[idx].answer) {
+                wrongs.push({ text: currentPractice.questions[idx].text, user: currentPractice.questions[idx].options[ans], correct: currentPractice.questions[idx].options[currentPractice.questions[idx].answer] });
+            }
+        });
+        if (wrongs.length > 0) {
+            html += `<h4>错题解析：</h4>`;
+            wrongs.forEach(w => { html += `<div style="background:#fee; padding:10px; margin:10px 0; border-radius:8px;"><div>${w.text}</div><div style="color:#c00;">❌ 您的答案：${w.user}</div><div style="color:#0a0;">✅ 正确答案：${w.correct}</div></div>`; });
         }
+        document.getElementById('practiceResultContent').innerHTML = html;
+        document.getElementById('practicePanel').style.display = 'none';
+        document.getElementById('practiceResultPanel').style.display = 'block';
     }
-
-    window.deleteQuestion = function(id) {
-        if (confirm('确定删除此题吗？')) {
-            questions = questions.filter(q => q.id !== id);
-            saveAll();
-            renderQuestions();
-        }
+    
+    function resetPractice() {
+        document.getElementById('practiceVerifyPanel').style.display = 'block';
+        document.getElementById('practicePanel').style.display = 'none';
+        document.getElementById('practiceResultPanel').style.display = 'none';
+        document.getElementById('practiceName').value = '';
     }
-
-    function addQuestion() {
-        const text = prompt('请输入题目：');
-        if (!text) return;
-        const opts = [];
-        for (let i = 0; i < 4; i++) {
-            const opt = prompt(`请输入选项 ${String.fromCharCode(65+i)}：`);
-            if (!opt) return;
-            opts.push(opt);
-        }
-        const ans = prompt('请输入正确答案(A/B/C/D)：').toUpperCase();
-        const ansIdx = ans.charCodeAt(0) - 65;
-        questions.push({ id: Date.now(), text: text, options: opts, answer: ansIdx });
-        saveAll();
-        renderQuestions();
-    }
-
-    function showImportModal(type) {
-        importType = type;
-        document.getElementById('importTitle').innerText = type === 'employee' ? '导入员工名单' : '导入题库';
-        document.getElementById('importModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-        document.getElementById('importModal').style.display = 'none';
-    }
-
+    
+    function showImportModal(type) { importType = type; document.getElementById('importTitle').innerHTML = type === 'employee' ? '导入员工名单' : '导入题库'; document.getElementById('importModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('importModal').style.display = 'none'; }
+    function closeAdminModal() { document.getElementById('adminLoginModal').style.display = 'none'; }
+    
     function doImport() {
-        const file = document.getElementById('importFile').files[0];
-        if (!file) {
-            alert('请选择文件');
-            return;
-        }
-        const reader = new FileReader();
+        let file = document.getElementById('importFile').files[0];
+        if (!file) { alert("请选择文件"); return; }
+        let reader = new FileReader();
         reader.onload = function(e) {
             try {
                 let data;
-                if (file.name.endsWith('.json')) {
-                    data = JSON.parse(e.target.result);
-                } else {
-                    const workbook = XLSX.read(e.target.result, { type: 'array' });
-                    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-                    data = XLSX.utils.sheet_to_json(sheet);
-                }
+                if (file.name.endsWith('.json')) { data = JSON.parse(e.target.result); }
+                else { let workbook = XLSX.read(e.target.result, {type:'array'}); let sheet = workbook.Sheets[workbook.SheetNames[0]]; data = XLSX.utils.sheet_to_json(sheet); }
                 if (importType === 'employee') {
-                    const newEmployees = data.map((row, i) => ({
-                        id: row.id || row.工号 || String(i+1).padStart(3, '0'),
-                        name: row.name || row.姓名 || '',
-                        dept: row.dept || row.部门 || '',
-                        position: row.position || row.岗位 || ''
-                    })).filter(emp => emp.name);
-                    employees.push(...newEmployees);
+                    let newEmps = data.map((row,i) => ({ id: row.id || row.工号 || String(i+1).padStart(3,'0'), name: row.name || row.姓名, dept: row.dept || row.部门 || '' })).filter(e => e.name);
+                    employees.push(...newEmps);
                 } else {
-                    const newQuestions = data.map((row, idx) => ({
-                        id: questions.length + idx + 1,
-                        text: row.题目 || row.text,
-                        options: [row.A, row.B, row.C, row.D],
-                        answer: ['A', 'B', 'C', 'D'].indexOf(row.答案 || row.answer)
-                    })).filter(q => q.text);
+                    let newQuestions = data.map((row,idx) => {
+                        let opts = [row.A, row.B, row.C, row.D];
+                        if (row.选项A) opts = [row.选项A, row.选项B, row.选项C, row.选项D];
+                        let answer = row.答案 || row.answer;
+                        let ansIdx = answer === 'A' ? 0 : answer === 'B' ? 1 : answer === 'C' ? 2 : answer === 'D' ? 3 : (answer === '正确' ? 0 : answer === '错误' ? 1 : 0);
+                        return { id: Date.now()+idx, text: row.题目 || row.text, options: opts, answer: ansIdx };
+                    }).filter(q => q.text);
                     questions.push(...newQuestions);
                 }
-                saveAll();
-                renderEmployees();
-                renderQuestions();
-                updateStats();
-                alert('导入成功！');
+                saveData();
+                renderEmployees(); renderQuestions();
+                alert("导入成功！");
                 closeModal();
-            } catch(err) {
-                alert('导入失败：' + err.message);
-            }
+            } catch(err) { alert("导入失败：" + err.message); }
         };
-        if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
-            reader.readAsArrayBuffer(file);
-        } else {
-            reader.readAsText(file);
-        }
+        if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) reader.readAsArrayBuffer(file);
+        else reader.readAsText(file);
     }
-
-    function exportData(type) {
-        let data, filename;
-        if (type === 'employees') {
-            data = employees;
-            filename = '员工数据.json';
-        } else if (type === 'questions') {
-            data = questions.map(q => ({ 题目: q.text, A: q.options[0], B: q.options[1], C: q.options[2], D: q.options[3], 答案: String.fromCharCode(65+q.answer) }));
-            filename = '题库.json';
-        } else {
-            data = examRecords;
-            filename = '考试成绩.json';
-        }
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = filename;
-        a.click();
-        URL.revokeObjectURL(a.href);
-    }
-
-    function clearAllData() {
-        if (confirm('⚠️ 清空所有数据不可恢复！确定要清空吗？')) {
-            employees = [...defaultEmployees];
-            questions = [...defaultQuestions];
-            examRecords = [];
-            saveAll();
-            renderEmployees();
-            renderQuestions();
-            renderRecords();
-            updateStats();
-            alert('已重置为默认数据');
-        }
-    }
-
-    function backupData() {
-        exportData('employees');
-        setTimeout(() => exportData('questions'), 100);
-        setTimeout(() => exportData('records'), 200);
-    }
-
-    function restoreData() {
-        alert('请选择之前备份的JSON文件进行恢复');
-        showImportModal('employee');
-    }
-
-    function adminLogin() {
-        const pwd = document.getElementById('adminPassword').value;
-        if (pwd === 'admin123') {
-            isAdmin = true;
-            localStorage.setItem('isAdmin', 'true');
-            document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'inline-block');
-            alert('登录成功！');
-            closeAdminModal();
-        } else {
-            alert('密码错误！');
-        }
-    }
-
-    function closeAdminModal() {
-        document.getElementById('adminLoginModal').style.display = 'none';
-    }
-
-    function saveSettings() {
-        settings.timeLimit = parseInt(document.getElementById('examTimeLimit').value);
-        saveAll();
-        alert('设置已保存');
-    }
-
-    // 绑定事件
+    
+    function exportRecords() { let blob = new Blob([JSON.stringify(examRecords,null,2)], {type:'application/json'}); let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = '考试成绩.json'; a.click(); }
+    window.deleteEmployee = function(id) { employees = employees.filter(e=>e.id!==id); saveData(); renderEmployees(); renderRecords(); }
+    window.deleteQuestion = function(id) { questions = questions.filter(q=>q.id!==id); saveData(); renderQuestions(); }
+    function clearAllData() { if(confirm("清空所有数据？")) { employees = []; questions = []; examRecords = []; dailyStatus = {}; saveData(); renderEmployees(); renderQuestions(); renderRecords(); alert("已清空"); } }
+    function resetDaily() { dailyStatus = {}; saveData(); renderEmployees(); alert("已重置今日状态"); }
+    function saveSettings() { settings.dailyCount = parseInt(document.getElementById('dailyCount').value); settings.dailyTime = parseInt(document.getElementById('dailyTime').value); saveData(); alert("设置已保存"); }
+    function changePassword() { let pwd = document.getElementById('newPwd').value; if(!pwd) return; admins[0].password = pwd; saveData(); alert("密码已修改"); document.getElementById('newPwd').value = ''; }
+    function adminLogin() { let pwd = document.getElementById('adminPwd').value; if(pwd === admins[0].password) { isAdmin=true; currentAdmin="admin"; localStorage.setItem('currentAdmin','admin'); document.querySelectorAll('.admin-only').forEach(el=>el.style.display='inline-block'); document.getElementById('adminBtn').style.display='none'; document.getElementById('logoutBtn').style.display='inline-block'); alert("登录成功"); closeAdminModal(); } else { alert("密码错误"); } }
+    function logout() { isAdmin=false; currentAdmin=null; localStorage.removeItem('currentAdmin'); document.querySelectorAll('.admin-only').forEach(el=>el.style.display='none'); document.getElementById('adminBtn').style.display='inline-block'; document.getElementById('logoutBtn').style.display='none'; alert("已退出"); }
+    
     function bindEvents() {
-        document.getElementById('startExamBtn').onclick = verifyAndStart;
-        document.getElementById('prevBtn').onclick = prevQ;
-        document.getElementById('nextBtn').onclick = nextQ;
+        document.getElementById('startExamBtn').onclick = startExam;
+        document.getElementById('prevBtn').onclick = () => prevQuestion();
+        document.getElementById('nextBtn').onclick = () => nextQuestion();
         document.getElementById('submitBtn').onclick = submitExam;
+        document.getElementById('startPracticeBtn').onclick = startPractice;
+        document.getElementById('practicePrevBtn').onclick = () => prevPractice();
+        document.getElementById('practiceNextBtn').onclick = () => nextPractice();
+        document.getElementById('practiceViewResultBtn').onclick = showPracticeResult;
+        document.getElementById('practiceAgainBtn').onclick = resetPractice;
         document.getElementById('importEmpBtn').onclick = () => showImportModal('employee');
-        document.getElementById('exportEmpBtn').onclick = () => exportData('employees');
-        document.getElementById('addQuestionBtn').onclick = addQuestion;
         document.getElementById('importQuesBtn').onclick = () => showImportModal('question');
-        document.getElementById('exportQuesBtn').onclick = () => exportData('questions');
-        document.getElementById('exportRecordBtn').onclick = () => exportData('records');
+        document.getElementById('exportRecordBtn').onclick = exportRecords;
         document.getElementById('clearDataBtn').onclick = clearAllData;
-        document.getElementById('backupDataBtn').onclick = backupData;
-        document.getElementById('restoreDataBtn').onclick = restoreData;
+        document.getElementById('resetDailyBtn').onclick = resetDaily;
         document.getElementById('saveSettingsBtn').onclick = saveSettings;
+        document.getElementById('changePwdBtn').onclick = changePassword;
         document.getElementById('adminBtn').onclick = () => document.getElementById('adminLoginModal').style.display = 'flex';
+        document.getElementById('logoutBtn').onclick = logout;
         document.getElementById('loginBtn').onclick = adminLogin;
         document.getElementById('closeAdminModalBtn').onclick = closeAdminModal;
         document.getElementById('confirmImportBtn').onclick = doImport;
@@ -1023,25 +661,23 @@
         
         document.querySelectorAll('.tab').forEach(tab => {
             tab.onclick = () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.tab).classList.add('active');
-                if (tab.dataset.tab === 'stats') updateStats();
+                if (tab.dataset.tab === 'stats') renderRecords();
+                if (tab.dataset.tab === 'manage') renderEmployees();
+                if (tab.dataset.tab === 'questionBank') renderQuestions();
+                if (tab.dataset.tab === 'records') renderRecords();
             };
         });
     }
-
-    // 页面加载
+    
     loadData();
     renderEmployees();
     renderQuestions();
     renderRecords();
-    updateStats();
     bindEvents();
-    
-    document.getElementById('examTimeLimit').value = settings.timeLimit;
-    if (isAdmin) document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'inline-block');
 </script>
 </body>
 </html>
